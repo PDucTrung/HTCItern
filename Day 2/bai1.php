@@ -2,29 +2,40 @@
 $string = "Chung toi toi HTC hoc Magento";
 $breakPoint = 15;
 
-function splitString(string $string, int $breakPoint)
+function splitString($str, $bp)
 {
-    $count = 0;
-    if ($string[$breakPoint - 1] != " ") {
-        for ($i = $breakPoint; $i < strlen($string); $i++) {
-            if ($string[$i] == " ") {
-                for ($j = 0; $j < $i; $j++) {
-                    $count++;
-                    echo $string[$j];
+    $start = 0;
+    $numString = 1;
+    while ($start < strlen($str) - 1) {
+        if ($start + $bp >= strlen($str)) {
+            echo ("Child " . $numString . ":");
+            for ($i = $start; $i < strlen($str); $i++) {
+                echo ($str[$i]);
+            }
+            echo "\n";
+            $start = strlen($str) - 1;
+        } else if ($str[$start + $bp] == " ") {
+            echo ("Child " . $numString . ":");
+            for ($i = $start; $i < $start + $bp; $i++) {
+                echo ($str[$i]);
+            }
+            echo "\n";
+            $start += $bp + 1;
+            $numString++;
+        } else if ($str[$start + $bp] != " ") {
+            for ($j = $start + $bp; $j < strlen($str); $j++) {
+                if ($str[$j] == " " || $j == strlen($str) - 1) {
+                    echo ("Child " . $numString . ":");
+                    for ($i = $start; $i < $j; $i++) {
+                        echo ($str[$i]);
+                    }
+                    echo "\n";
+                    $start = $j + 1;
+                    $numString++;
+                    break;
                 }
-                break;
             }
         }
-    } else {
-        for ($i = 0; $i < $breakPoint; $i++) {
-            $count++;
-            echo $string[$i];
-        }
-    }
-
-    echo "\n";
-    for ($i = $count; $i < strlen($string); $i++) {
-        echo $string[$i];
     }
 }
 
