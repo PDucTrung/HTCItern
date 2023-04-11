@@ -76,6 +76,20 @@
                 hệ số lương
               </button>
             </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="thongke-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#thongke"
+                type="button"
+                role="tab"
+                aria-controls="thongke"
+                aria-selected="false"
+              >
+                Thống kê
+              </button>
+            </li>
           </ul>
           <div class="tab-content" id="myTabContent">
             <div
@@ -90,22 +104,22 @@
                     type="button"
                     class="btn btn-primary"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target="#addDevModal"
                   >
                     Thêm
                   </button>
                   <div
                     class="modal fade"
-                    id="exampleModal"
+                    id="addDevModal"
                     tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
+                    aria-labelledby="addDevModalLabel"
                     aria-hidden="true"
                   >
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">
-                            Add Item
+                          <h5 class="modal-title" id="addDevModalLabel">
+                            Add Dev
                           </h5>
                           <button
                             type="button"
@@ -114,7 +128,82 @@
                             aria-label="Close"
                           ></button>
                         </div>
-                        <div class="modal-body">...</div>
+                        <div class="modal-body">
+                          <div class="d-flex flex-column gap-3">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                          </div>
+                        </div>
                         <div class="modal-footer">
                           <button
                             type="button"
@@ -223,7 +312,127 @@
               aria-labelledby="manager-tab"
             >
               <div class="table-bg">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addmanager-modal"
+                  >
+                    Thêm
+                  </button>
+                  <div
+                    class="modal fade"
+                    id="addmanager-modal"
+                    tabindex="-1"
+                    aria-labelledby="addmanager-modalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="addmanager-modalLabel">
+                            Add Manager
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="d-flex flex-column gap-3">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Hủy
+                          </button>
+                          <button type="button" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <table>
                   <thead>
                     <tr>
@@ -233,8 +442,8 @@
                       <th>Ngày sinh</th>
                       <th>Số năm kinh nghiệm</th>
                       <th>Lương cơ bản</th>
-                      <th>Ngôn ngữ lập trình</th>
                       <th>Level</th>
+                      <th>Lương</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -309,7 +518,91 @@
               aria-labelledby="contact-tab"
             >
               <div class="table-bg">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addWorkModal"
+                  >
+                    Thêm
+                  </button>
+                  <div
+                    class="modal fade"
+                    id="addWorkModal"
+                    tabindex="-1"
+                    aria-labelledby="addWorkModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="addDevWorkLabel">
+                            Add Work
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="d-flex flex-column gap-3">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Hủy
+                          </button>
+                          <button type="button" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <table>
                   <thead>
                     <tr>
@@ -383,7 +676,73 @@
               aria-labelledby="salary-tab"
             >
               <div class="table-bg">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addSalaryModal"
+                  >
+                    Thêm
+                  </button>
+                  <div
+                    class="modal fade"
+                    id="addSalaryModal"
+                    tabindex="-1"
+                    aria-labelledby="addSalaryModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="addDevSalaryLabel">
+                            Add Salary
+                          </h5>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="d-flex flex-column gap-3">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Hủy
+                          </button>
+                          <button type="button" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <table>
                   <thead>
                     <tr>
@@ -416,6 +775,57 @@
                           Xóa
                         </button>
                       </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <nav aria-label="Page navigation panigation">
+                          <ul class="pagination">
+                            <li class="page-item">
+                              <a class="page-link" href="#">Previous</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">Next</a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="thongke"
+              role="tabpanel"
+              aria-labelledby="thongke-tab"
+            >
+              <div class="table-bg">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Level</th>
+                      <th>Hệ số</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>dsad</td>
+                      <td>dsad</td>
+                    </tr>
+                    <tr>
+                      <td>dsad</td>
+                      <td>dsad</td>
                     </tr>
                     <tr>
                       <td colspan="3">
