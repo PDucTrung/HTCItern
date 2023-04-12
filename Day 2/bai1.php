@@ -1,5 +1,5 @@
 <?php
-$string = "Chung toi den HTC hoc Magento Chung toi den HTC hoc Magento";
+$string = "Chung toi den HTC hoc Magento";
 $breakPoint = 15;
 
 function splitString(string $string, int $breakPoint)
