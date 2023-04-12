@@ -69,28 +69,31 @@ mysqli_set_charset($conn, "utf8");
                                             <div class="modal-body">
                                                 <div class="d-flex flex-column gap-3">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Ten" aria-label="ten" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Dia chi" aria-label="diachi" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Ngay sinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="So nam kinh nghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" aria-label="language" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="Luong" aria-label="luong" aria-describedby="basic-addon1" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,28 +121,31 @@ mysqli_set_charset($conn, "utf8");
                                         <div class="modal-body">
                                             <div class="d-flex flex-column gap-3">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Ten" aria-label="ten" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Dia chi" aria-label="diachi" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Ngay sinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="So nam kinh nghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" aria-label="language" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Luong" aria-label="luong" aria-describedby="basic-addon1" />
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +161,7 @@ mysqli_set_charset($conn, "utf8");
                                 </div>
                             </div>
                             <?php
-                            $result = mysqli_query($conn, "SELECT * FROM staff INNER JOIN devloper ON staff.StaffID = devloper.StaffID");
+                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.level = soefficientsalary.level");
 
                             echo "<table>
                             <thead>
@@ -184,8 +190,8 @@ mysqli_set_charset($conn, "utf8");
                                         <td>{$row["namkinhnghiem"]}</td>
                                         <td>{$row["luongcoban"]}</td>
                                         <td>{$row["language"]}</td>
-                                        <td>{$row["leveldev"]}</td>
-                                        <td></td>
+                                        <td>{$row["level"]}</td>
+                                        <td>{$row["luong"]}</td>
                                         <td>
                                             <button
                                             type='button'
@@ -336,7 +342,7 @@ mysqli_set_charset($conn, "utf8");
                                 </div>
                             </div>
                             <?php
-                            $result = mysqli_query($conn, "SELECT * FROM staff INNER JOIN manager ON staff.StaffID = manager.StaffID");
+                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
 
                             echo "<table>
                             <thead>
@@ -363,8 +369,9 @@ mysqli_set_charset($conn, "utf8");
                                         <td>{$row["ngaysinh"]}</td>
                                         <td>{$row["namkinhnghiem"]}</td>
                                         <td>{$row["luongcoban"]}</td>
-                                        <td>{$row["levelmanager"]}</td>
-                                        <td></td>
+                                        <td>{$row["level"]}</td>
+                                        <td>{$row["luong"]}</td>
+                            
                                         <td>
                                             <button
                                             type='button'
