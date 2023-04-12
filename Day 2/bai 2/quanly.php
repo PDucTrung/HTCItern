@@ -3,6 +3,32 @@
 include_once('connect.php');
 
 mysqli_set_charset($conn, "utf8");
+
+// create hesoluong
+if (isset($_POST["addhsluong"])) {
+    //lấy thông tin từ các form bằng phương thức POST
+    $level = $_POST["level"];
+    $hsluong = $_POST["hsluong"];
+    //Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
+    if ($level == "" || $hsluong == "") {
+        echo "bạn vui lòng nhập đầy đủ thông tin";
+    } else {
+        // Kiểm tra tài khoản đã tồn tại chưa
+        $sql = "SELECT * FROM soefficientsalary WHERE level='$level'";
+        $kt = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($kt)  > 0) {
+            echo "Level đã tồn tại";
+        } else {
+            //thực hiện việc lưu trữ dữ liệu vào db
+            $sql = "INSERT INTO soefficientsalary VALUES ('$level','$hsluong')";
+            // thực thi câu $sql với biến conn lấy từ file connect.php
+            mysqli_query($conn, $sql);
+            mysqli_close($conn);
+            header('location:quanly.php');
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,9 +170,7 @@ mysqli_set_charset($conn, "utf8");
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
                                                 </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Luong" aria-label="luong" aria-describedby="basic-addon1" />
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -342,7 +366,7 @@ mysqli_set_charset($conn, "utf8");
                                 </div>
                             </div>
                             <?php
-                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
+                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
 
                             echo "<table>
                             <thead>
@@ -579,30 +603,33 @@ mysqli_set_charset($conn, "utf8");
                                 <div class="modal fade" id="addSalaryModal" tabindex="-1" aria-labelledby="addSalaryModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="addDevSalaryLabel">
-                                                    Add Salary
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="d-flex flex-column gap-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                            <!-- form -->
+                                            <form action="" method="POST">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addDevSalaryLabel">
+                                                        Add Salary
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="d-flex flex-column gap-3">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="level" name="level" aria-label="level" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="he so luong" aria-label="hsluong" name="hsluong" aria-describedby="basic-addon1" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Hủy
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    Thêm
-                                                </button>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Hủy
+                                                    </button>
+                                                    <button type="button" name="addhsluong" class="btn btn-primary" type="submit">
+                                                        Thêm
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -651,7 +678,6 @@ mysqli_set_charset($conn, "utf8");
                         echo "<table>
                             <thead>
                                 <tr>
-                                    <th>Nhân viên ID</th>
                                     <th>level</th>
                                     <th>Hệ số lương</th>
                                     <th></th>
@@ -662,7 +688,6 @@ mysqli_set_charset($conn, "utf8");
                             echo ("
                                 <tbody>
                                     <tr>
-                                        <td>{$row["staffID"]}</td>
                                         <td>{$row["level"]}</td>
                                         <td>{$row["hesoluong"]}</td>
                                         <td>
@@ -717,7 +742,7 @@ mysqli_set_charset($conn, "utf8");
                             // include_once('connect.php');
 
                             // mysqli_set_charset($conn, "utf8");
-                            $result = mysqli_query($conn, "SELECT staff.ten, staff.luongcoban, work.sogio FROM staff, work WHERE staff.StaffID=work.staffID");
+                            $result = mysqli_query($conn, "SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.level = soefficientsalary.level UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
 
                             echo "<table>
                             <thead>
@@ -733,7 +758,7 @@ mysqli_set_charset($conn, "utf8");
                                 <tbody>
                                     <tr>
                                         <td>{$row["ten"]}</td>
-                                        <td>{$row["luongcoban"]}</td>
+                                        <td>{$row["luong"]}</td>
                                         <td>{$row["sogio"]}</td>
                                     </tr>
                                     ");
