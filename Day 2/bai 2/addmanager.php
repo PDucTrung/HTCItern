@@ -1,7 +1,7 @@
 <?php
 include "connect.php";
 
-if (isset($_POST["adddev"])) {
+if (isset($_POST["addmanager"])) {
     $staffid = $_POST["staffid"];
     $ten = $_POST["ten"];
     $tuoi = $_POST["tuoi"];
@@ -9,10 +9,9 @@ if (isset($_POST["adddev"])) {
     $ngaysinh = $_POST["ngaysinh"];
     $luongcoban = $_POST["luongcoban"];
     $sonamkinhnghiem = $_POST["sonamkinhnghiem"];
-    $nnlt = $_POST["ngonngulaptrinh"];
     $selectlevel = $_POST["selectlevel"];
 
-    if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $nnlt == "" || $selectlevel == "") {
+    if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $selectlevel == "") {
         echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
         echo '<script> window.location = "quanly.php"; </script>';
     } else {
@@ -23,9 +22,9 @@ if (isset($_POST["adddev"])) {
             echo '<script> window.location = "quanly.php"; </script>';
         } else {
             $staff = "INSERT INTO staff VALUES ('$staffid','$ten','$tuoi','$diachi','$ngaysinh','$sonamkinhnghiem','$luongcoban')";
-            $dev = "INSERT INTO devloper VALUES ('$staffid','$nnlt','$selectlevel')";
+            $manager = "INSERT INTO manager VALUES ('$staffid','$selectlevel')";
             mysqli_query($conn, $staff);
-            mysqli_query($conn, $dev);
+            mysqli_query($conn, $manager);
             echo '<script> alert("Data Saved"); </script>';
             header("location: quanly.php");
         }

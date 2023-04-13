@@ -92,10 +92,19 @@ mysqli_set_charset($conn, "utf8");
                                                             <input type="text" class="form-control" placeholder="So nam kinh nghiem" name="sonamkinhnghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="luong co ban" name="luongcoban" aria-label="sonamkn" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
                                                             <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" name="ngonngulaptrinh" aria-label="language" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-
+                                                            <select class="form-select" aria-label="Default select example" name="selectlevel">
+                                                                <option value="" selected>select level</option>
+                                                                <option value="junior 1">Junior 1</option>
+                                                                <option value="junior 2">Junior 2</option>
+                                                                <option value="junior 3">Junior 3</option>
+                                                                <option value="junior 4">Junior 4</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -103,7 +112,7 @@ mysqli_set_charset($conn, "utf8");
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Hủy
                                                     </button>
-                                                    <button type="button" class="btn btn-primary">
+                                                    <button type="submit" class="btn btn-primary" name="adddev">
                                                         Thêm
                                                     </button>
                                                 </div>
@@ -148,7 +157,13 @@ mysqli_set_charset($conn, "utf8");
                                                         <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" aria-label="language" aria-describedby="basic-addon1" />
                                                     </div>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>select level</option>
+                                                            <option value="1">Junior 1</option>
+                                                            <option value="2">Junior 2</option>
+                                                            <option value="3">Junior 3</option>
+                                                            <option value="4">Junior 4</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </form>
@@ -250,42 +265,50 @@ mysqli_set_charset($conn, "utf8");
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <!-- form -->
-                                                <form action="" method="post">
+
+                                            <!-- form -->
+                                            <form action="addmanager.php" method="post">
+                                                <div class="modal-body">
                                                     <div class="d-flex flex-column gap-3">
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="StaffID" name="staffid" aria-label="StaffID" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Ten" aria-label="ten" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="Ten" name="ten" aria-label="ten" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="Tuoi" name="tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Dia chi" aria-label="diachi" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="Dia chi" name="diachi" aria-label="diachi" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Ngay sinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="Ngay sinh" name="ngaysinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="So nam kinh nghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="So nam kinh nghiem" name="sonamkinhnghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
                                                         </div>
                                                         <div class="input-group mb-3">
-
+                                                            <input type="text" class="form-control" placeholder="luong co ban" name="luongcoban" aria-label="sonamkn" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <select class="form-select" name="selectlevel" aria-label="Default select example">
+                                                                <option selected value="">select level</option>
+                                                                <option value="PA">PA</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Hủy
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    Thêm
-                                                </button>
-                                            </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Hủy
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary" name="addmanager">
+                                                        Thêm
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -325,7 +348,9 @@ mysqli_set_charset($conn, "utf8");
                                                     <inpt type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                    <option selected>select level</option>
+                                                    <option value="1">PA</option>
+                                                    <option value="2">PM</option>
                                                 </div>
                                             </div>
                                         </div>
@@ -434,30 +459,34 @@ mysqli_set_charset($conn, "utf8");
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="d-flex flex-column gap-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+
+                                            <!-- form -->
+                                            <form action="addwork.php" method="post">
+                                                <div class="modal-body">
+                                                    <div class="d-flex flex-column gap-3">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name="staffid" placeholder="Staff ID" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="So gio" name="sogio" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="thang" name="thang" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="nam" name="nam" aria-label="Username" aria-describedby="basic-addon1" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Hủy
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    Thêm
-                                                </button>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Hủy
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary" name="addwork">
+                                                        Thêm
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -646,11 +675,12 @@ mysqli_set_charset($conn, "utf8");
 
                             <!-- show data -->
                             <?php
-                            $soefficientsalarydata = mysqli_query($conn, "SELECT devloper.level, soefficientsalary.hesoluong FROM devloper INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT manager.level, soefficientsalary.hesoluong FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID");
+                            $soefficientsalarydata = mysqli_query($conn, "SELECT devloper.StaffID,devloper.level, soefficientsalary.hesoluong FROM devloper INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT manager.StaffID,manager.level, soefficientsalary.hesoluong FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID");
 
                             echo "<table>
                             <thead>
                                 <tr>
+                                    <th>Staff ID</th>
                                     <th>level</th>
                                     <th>Hệ số lương</th>
                                     <th></th>
@@ -661,6 +691,7 @@ mysqli_set_charset($conn, "utf8");
                                 echo ("
                                 <tbody>
                                     <tr>
+                                        <td>{$row["StaffID"]}</td>
                                         <td>{$row["level"]}</td>
                                         <td>{$row["hesoluong"]}</td>
                                         <td>
@@ -680,7 +711,7 @@ mysqli_set_charset($conn, "utf8");
                                     ");
                             }
                             echo "<tr>
-                                        <td colspan='3'>
+                                        <td colspan='4'>
                                             <nav aria-label='Page navigation panigation'>
                                             <ul class='pagination'>
                                                 <li class='page-item'>
