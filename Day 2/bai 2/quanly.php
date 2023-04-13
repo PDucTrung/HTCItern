@@ -228,8 +228,38 @@ mysqli_set_charset($conn, "utf8");
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- delete -->
+                            <div class="modal fade" id="deleteDevModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteDevModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form role="form" action="delete.php?action=deletedev" method="post">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteDevModalLabel">Delete Dev
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="deletedev_id" id="deletedev_id" value="">
+                                                <h4> Do you want to Delete this Data ?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" name="deletedata"
+                                                    class="btn btn-primary">OK</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  -->
                             <?php
-                            $devdata = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.StaffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID"); ?>
+                            $devdata = mysqli_query($conn, "SELECT devloper.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.StaffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID"); ?>
 
                             <!-- show data -->
                             <table>
@@ -249,7 +279,7 @@ mysqli_set_charset($conn, "utf8");
                                 </thead>
 
                                 <tbody>
-                                    <?php while ($row = mysqli_fetch_array($devdata)) { ?>
+                                    <?php while ($row = mysqli_fetch_assoc($devdata)) { ?>
                                     <tr>
                                         <td>
                                             <?php echo $row["ten"]; ?></td>
@@ -266,7 +296,9 @@ mysqli_set_charset($conn, "utf8");
                                                 data-bs-target='#editDevModal'>
                                                 Sửa
                                             </button>
-                                            <button type='button' class='btn btn-danger'>
+                                            <button type='button' class='btn btn-danger' data-bs-toggle='modal'
+                                                data-bs-target='#deleteDevModal'
+                                                onclick='deleteDev(<?php echo $row["StaffID"]; ?>)'>
                                                 Xóa
                                             </button>
                                         </td>
@@ -456,9 +488,38 @@ mysqli_set_charset($conn, "utf8");
                                 </div>
                             </div>
 
+                            <!-- delete -->
+                            <div class="modal fade" id="deleteManagerModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteManagerModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form role="form" action="delete.php?action=deletemanager" method="post">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteManagerModalLabel">Delete Manager
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="deletemanager_id" id="deletemanager_id"
+                                                    value="">
+                                                <h4> Do you want to Delete this Data ?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" name="deletedata"
+                                                    class="btn btn-primary">OK</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- show data -->
                             <?php
-                            $managerdata = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.StaffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
+                            $managerdata = mysqli_query($conn, "SELECT manager.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.StaffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
 
                             echo "<table>
                             <thead>
@@ -497,7 +558,12 @@ mysqli_set_charset($conn, "utf8");
                                             >
                                                 Sửa
                                             </button>
-                                            <button type='button' class='btn btn-danger'>
+                                            <button type='button' 
+                                            class='btn btn-danger'
+                                            data-bs-toggle='modal' 
+                                            data-bs-target='#deleteManagerModal'
+                                            onclick='deleteManager({$row["StaffID"]})'
+                                            >
                                                 Xóa
                                             </button>
                                         </td>
@@ -606,41 +672,66 @@ mysqli_set_charset($conn, "utf8");
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form role="form" action="edit.php?action=editwork" method="post">
-                                                <div class="modal-body">
-                                                    <div class="d-flex flex-column gap-3">
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name="staffid"
-                                                                placeholder="Staff ID" aria-label="Username"
-                                                                aria-describedby="basic-addon1" />
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name="sogio"
-                                                                placeholder="sogio" aria-label="Username"
-                                                                aria-describedby="basic-addon1" />
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name="thang"
-                                                                placeholder="thang" aria-label="Username"
-                                                                aria-describedby="basic-addon1" />
-                                                        </div>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" name="nam"
-                                                                placeholder="nam" aria-label="Username"
-                                                                aria-describedby="basic-addon1" />
-                                                        </div>
+
+                                            <div class="modal-body">
+                                                <div class="d-flex flex-column gap-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="staffid"
+                                                            placeholder="Staff ID" aria-label="Username"
+                                                            aria-describedby="basic-addon1" />
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="sogio"
+                                                            placeholder="sogio" aria-label="Username"
+                                                            aria-describedby="basic-addon1" />
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="thang"
+                                                            placeholder="thang" aria-label="Username"
+                                                            aria-describedby="basic-addon1" />
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" name="nam"
+                                                            placeholder="nam" aria-label="Username"
+                                                            aria-describedby="basic-addon1" />
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        Hủy
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary" name="edit">
-                                                        lưu
-                                                    </button>
-                                                </div>
-                                            </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Hủy
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" name="edit">
+                                                    lưu
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- delete -->
+                            <div class="modal fade" id="deleteWorkModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteWorkModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form role="form" action="delete.php?action=deletework" method="post">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteWorkModalLabel">Delete work</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="deletework_id" id="deletework_id" value="">
+                                                <h4> Do you want to Delete this Data ?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" name="deletedata"
+                                                    class="btn btn-primary">OK</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -678,36 +769,42 @@ mysqli_set_charset($conn, "utf8");
                                             >
                                                 Sửa
                                             </button>
-                                            <button type='button' class='btn btn-danger'>
-                                                Xóa
+                                            <button 
+                                            type='button' 
+                                            class='btn btn-danger btn-del-work'                                          
+                                            data-bs-toggle='modal' 
+                                            data-bs-target='#deleteWorkModal'
+                                            onclick='deleteWork({$row["StaffID"]})'
+                                            >
+                                            Xóa
                                             </button>
                                         </td>
                                     </tr>
-                                    ");
+                                ");
                             }
                             echo "<tr>
-                                        <td colspan='5'>
-                                            <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
+                                <td colspan='5'>
+                                    <nav aria-label='Page navigation panigation'>
+                                        <ul class='pagination'>
+                                            <li class='page-item'>
                                                 <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
+                                            </li>
+                                            <li class='page-item'>
                                                 <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
+                                            </li>
+                                            <li class='page-item'>
                                                 <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
+                                            </li>
+                                            <li class='page-item'>
                                                 <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
+                                            </li>
+                                            <li class='page-item'>
                                                 <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
-                                            </nav>
-                                        </td>
-                                    </tr>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </td>
+                            </tr>
                             </tbody>
                             </table>";
                             ?>
@@ -801,6 +898,35 @@ mysqli_set_charset($conn, "utf8");
                                 </div>
                             </div>
 
+                            <!-- delete -->
+                            <div class="modal fade" id="deleteSalaryModal" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSalaryModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form role="form" action="delete.php?action=deletesalary" method="post">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteSalaryModalLabel">Delete Salary
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="deletesalary_id" id="deletesalary_id"
+                                                    value="">
+                                                <h4> Do you want to Delete this Data ?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" name="deletedata"
+                                                    class="btn btn-primary">OK</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- show data -->
                             <?php
                             $soefficientsalarydata = mysqli_query($conn, "SELECT devloper.StaffID,devloper.level, soefficientsalary.hesoluong FROM devloper INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT manager.StaffID,manager.level, soefficientsalary.hesoluong FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID");
@@ -831,7 +957,12 @@ mysqli_set_charset($conn, "utf8");
                                             >
                                                 Sửa
                                             </button>
-                                            <button type='button' class='btn btn-danger'>
+                                            <button type='button' 
+                                            class='btn btn-danger'
+                                            data-bs-toggle='modal' 
+                                            data-bs-target='#deleteSalaryModal'
+                                            onclick='deleteSalary({$row["StaffID"]})'
+                                            >
                                                 Xóa
                                             </button>
                                         </td>
@@ -932,3 +1063,28 @@ mysqli_set_charset($conn, "utf8");
 </body>
 
 </html>
+
+<script>
+let workId = document.querySelector('#deletework_id');
+let salaryId = document.querySelector('#deletesalary_id');
+let devId = document.querySelector('#deletedev_id');
+let managerId = document.querySelector('#deletemanager_id');
+
+
+function deleteWork(id) {
+    workId.value = id;
+};
+
+function deleteSalary(id) {
+    salaryId.value = id;
+};
+
+function deleteDev(id) {
+    devId.value = id;
+    console.log(devId.value);
+};
+
+function deleteManager(id) {
+    managerId.value = id;
+};
+</script>
