@@ -1,34 +1,9 @@
 <?php
 // session_start();
-include_once('connect.php');
+include 'connect.php';
 
 mysqli_set_charset($conn, "utf8");
 
-// create hesoluong
-if (isset($_POST["addhsluong"])) {
-    //lấy thông tin từ các form bằng phương thức POST
-    $level = $_POST["level"];
-    $hsluong = $_POST["hsluong"];
-    //Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
-    if ($level == "" || $hsluong == "") {
-        echo "bạn vui lòng nhập đầy đủ thông tin";
-    } else {
-        // Kiểm tra tài khoản đã tồn tại chưa
-        $sql = "SELECT * FROM soefficientsalary WHERE level='$level'";
-        $kt = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($kt)  > 0) {
-            echo "Level đã tồn tại";
-        } else {
-            //thực hiện việc lưu trữ dữ liệu vào db
-            $sql = "INSERT INTO soefficientsalary VALUES ('$level','$hsluong')";
-            // thực thi câu $sql với biến conn lấy từ file connect.php
-            mysqli_query($conn, $sql);
-            mysqli_close($conn);
-            header('location:quanly.php');
-        }
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +54,8 @@ if (isset($_POST["addhsluong"])) {
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="dev" role="tabpanel" aria-labelledby="dev-tab">
                         <div class="table-bg">
-                            <div>
+                            <!-- add -->
+                            <div class="modaladd">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDevModal">
                                     Thêm
                                 </button>
@@ -92,7 +68,63 @@ if (isset($_POST["addhsluong"])) {
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
+
+                                            <!-- form -->
+                                            <form action="adddev.php" method="post">
+                                                <div class="modal-body">
+                                                    <div class="d-flex flex-column gap-3">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="StaffID" name="staffid" aria-label="StaffID" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Ten" name="ten" aria-label="ten" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Tuoi" name="tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Dia chi" name="diachi" aria-label="diachi" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Ngay sinh" name="ngaysinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="So nam kinh nghiem" name="sonamkinhnghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" name="ngonngulaptrinh" aria-label="language" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Hủy
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">
+                                                        Thêm
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- edit -->
+                            <div class="modal fade" id="editDevModal" tabindex="-1" aria-labelledby="editDevModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editDevModalLabel">
+                                                Edit Dev
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="">
                                                 <div class="d-flex flex-column gap-3">
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
@@ -118,60 +150,8 @@ if (isset($_POST["addhsluong"])) {
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
                                                     </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Luong" aria-label="luong" aria-describedby="basic-addon1" />
-                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Hủy
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    Thêm
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="editDevModal" tabindex="-1" aria-labelledby="editDevModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editDevModalLabel">
-                                                Edit Dev
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="d-flex flex-column gap-3">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Ten" aria-label="ten" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Dia chi" aria-label="diachi" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Ngay sinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="So nam kinh nghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Ngon ngu lap trinh" aria-label="language" aria-describedby="basic-addon1" />
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Level dev" aria-label="level" aria-describedby="basic-addon1" />
-                                                </div>
-
-                                            </div>
+                                            </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -185,86 +165,79 @@ if (isset($_POST["addhsluong"])) {
                                 </div>
                             </div>
                             <?php
-                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.level = soefficientsalary.level");
+                            $devdata = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID"); ?>
 
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Tên</th>
-                                    <th>Tuổi</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Số năm kinh nghiệm</th>
-                                    <th>Lương cơ bản</th>
-                                    <th>Ngôn ngữ lập trình</th>
-                                    <th>Level</th>
-                                    <th>Lương</th>                                   
-                                    <th></th>
-                                </tr>
-                            </thead>";
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo ("
-                                <tbody>
+                            <!-- show data -->
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{$row["ten"]}</td>
-                                        <td>{$row["tuoi"]}</td>
-                                        <td>{$row["diachi"]}</td>
-                                        <td>{$row["ngaysinh"]}</td>
-                                        <td>{$row["namkinhnghiem"]}</td>
-                                        <td>{$row["luongcoban"]}</td>
-                                        <td>{$row["language"]}</td>
-                                        <td>{$row["level"]}</td>
-                                        <td>{$row["luong"]}</td>
-                                        <td>
-                                            <button
-                                            type='button'
-                                            class='btn btn-primary'
-                                            data-bs-toggle='modal'
-                                            data-bs-target='#editDevModal'
-                                            >
-                                                Sửa
-                                            </button>
-                                            <button type='button' class='btn btn-danger'>
-                                                Xóa
-                                            </button>
-                                        </td>
+                                        <th>Tên</th>
+                                        <th>Tuổi</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Số năm kinh nghiệm</th>
+                                        <th>Lương cơ bản</th>
+                                        <th>Ngôn ngữ lập trình</th>
+                                        <th>Level</th>
+                                        <th>Lương</th>
+                                        <th></th>
                                     </tr>
-                                    ");
-                            }
-                            echo "<tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_array($devdata)) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $row["ten"]; ?></td>
+                                            <td><?php echo $row["tuoi"]; ?></td>
+                                            <td><?php echo $row["diachi"]; ?></td>
+                                            <td><?php echo $row["ngaysinh"]; ?></td>
+                                            <td><?php echo $row["namkinhnghiem"]; ?></td>
+                                            <td><?php echo $row["luongcoban"]; ?></td>
+                                            <td><?php echo $row["language"]; ?></td>
+                                            <td><?php echo $row["level"]; ?></td>
+                                            <td><?php echo $row["luong"]; ?></td>
+                                            <td>
+                                                <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editDevModal'>
+                                                    Sửa
+                                                </button>
+                                                <button type='button' class='btn btn-danger'>
+                                                    Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
                                         <td colspan='10'>
                                             <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
+                                                <ul class='pagination'>
+                                                    <li class='page-item'>
+                                                        <a class='page-link' href='#'>Previous</a>
+                                                    </li>
+                                                    <li class='page-item'>
+                                                        <a class='page-link' href='#'>1</a>
+                                                    </li>
+                                                    <li class='page-item'>
+                                                        <a class='page-link' href='#'>2</a>
+                                                    </li>
+                                                    <li class='page-item'>
+                                                        <a class='page-link' href='#'>3</a>
+                                                    </li>
+                                                    <li class='page-item'>
+                                                        <a class='page-link' href='#'>Next</a>
+                                                    </li>
+                                                </ul>
                                             </nav>
                                         </td>
                                     </tr>
-                            </tbody>
-                            </table>";
-
-                            // mysqli_close($conn);
-                            ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="manager" role="tabpanel" aria-labelledby="manager-tab">
                         <div class="table-bg">
-                            <div>
+                            <!-- add -->
+                            <div class="modaladd">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addmanager-modal">
                                     Thêm
                                 </button>
@@ -278,32 +251,32 @@ if (isset($_POST["addhsluong"])) {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="d-flex flex-column gap-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                <!-- form -->
+                                                <form action="" method="post">
+                                                    <div class="d-flex flex-column gap-3">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="StaffID" aria-label="StaffID" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Ten" aria-label="ten" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Tuoi" aria-label="tuoi" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Dia chi" aria-label="diachi" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Ngay sinh" aria-label="ngaysinh" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="So nam kinh nghiem" aria-label="sonamkn" aria-describedby="basic-addon1" />
+                                                        </div>
+                                                        <div class="input-group mb-3">
+
+                                                        </div>
                                                     </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -317,6 +290,8 @@ if (isset($_POST["addhsluong"])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- edit -->
                             <div class="modal fade" id="editManagerModal" tabindex="-1" aria-labelledby="editManagerModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -365,8 +340,10 @@ if (isset($_POST["addhsluong"])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- show data -->
                             <?php
-                            $result = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
+                            $managerdata = mysqli_query($conn, "SELECT staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
 
                             echo "<table>
                             <thead>
@@ -383,7 +360,7 @@ if (isset($_POST["addhsluong"])) {
                                 </tr>
                             </thead>";
 
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while ($row = mysqli_fetch_assoc($managerdata)) {
                                 echo ("
                                 <tbody>
                                     <tr>
@@ -413,7 +390,7 @@ if (isset($_POST["addhsluong"])) {
                                     ");
                             }
                             echo "<tr>
-                                        <td colspan='10'>
+                                        <td colspan='9'>
                                             <nav aria-label='Page navigation panigation'>
                                             <ul class='pagination'>
                                                 <li class='page-item'>
@@ -438,13 +415,13 @@ if (isset($_POST["addhsluong"])) {
                             </tbody>
                             </table>";
 
-                            // mysqli_close($conn);
                             ?>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="work" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="table-bg">
-                            <div>
+                            <!-- add -->
+                            <div class="modaladd">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWorkModal">
                                     Thêm
                                 </button>
@@ -485,6 +462,8 @@ if (isset($_POST["addhsluong"])) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- edit -->
                             <div class="modal fade" id="editWorkModal" tabindex="-1" aria-labelledby="editWorkModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -522,12 +501,9 @@ if (isset($_POST["addhsluong"])) {
                                 </div>
                             </div>
 
+                            <!-- show data -->
                             <?php
-                            // session_start();
-                            // include_once('connect.php');
-
-                            // mysqli_set_charset($conn, "utf8");
-                            $result = mysqli_query($conn, "SELECT * FROM work");
+                            $workdata = mysqli_query($conn, "SELECT * FROM work");
 
                             echo "<table>
                             <thead>
@@ -540,7 +516,7 @@ if (isset($_POST["addhsluong"])) {
                                 </tr>
                             </thead>";
 
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while ($row = mysqli_fetch_assoc($workdata)) {
                                 echo ("
                                 <tbody>
                                     <tr>
@@ -565,7 +541,7 @@ if (isset($_POST["addhsluong"])) {
                                     ");
                             }
                             echo "<tr>
-                                        <td colspan='9'>
+                                        <td colspan='5'>
                                             <nav aria-label='Page navigation panigation'>
                                             <ul class='pagination'>
                                                 <li class='page-item'>
@@ -590,21 +566,20 @@ if (isset($_POST["addhsluong"])) {
                             </tbody>
                             </table>";
 
-                            // mysqli_close($conn);
                             ?>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="salary-tab">
                         <div class="table-bg">
-                            <div>
+                            <!-- add -->
+                            <div class="modaladd">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSalaryModal">
                                     Thêm
                                 </button>
                                 <div class="modal fade" id="addSalaryModal" tabindex="-1" aria-labelledby="addSalaryModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <!-- form -->
-                                            <form action="" method="POST">
+                                            <form method="POST" action="addhsluong.php">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="addDevSalaryLabel">
                                                         Add Salary
@@ -614,10 +589,10 @@ if (isset($_POST["addhsluong"])) {
                                                 <div class="modal-body">
                                                     <div class="d-flex flex-column gap-3">
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="level" name="level" aria-label="level" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="StaffID" name="staffid" aria-label="level" aria-describedby="basic-addon1" value="" />
                                                         </div>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="he so luong" aria-label="hsluong" name="hsluong" aria-describedby="basic-addon1" />
+                                                            <input type="text" class="form-control" placeholder="he so luong" aria-label="hsluong" name="hsluong" aria-describedby="basic-addon1" value="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -625,7 +600,7 @@ if (isset($_POST["addhsluong"])) {
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Hủy
                                                     </button>
-                                                    <button type="button" name="addhsluong" class="btn btn-primary" type="submit">
+                                                    <button type="submit" name="addhsluong" class="btn btn-primary">
                                                         Thêm
                                                     </button>
                                                 </div>
@@ -633,49 +608,47 @@ if (isset($_POST["addhsluong"])) {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
-                        </div>
-                        <div class="modal fade" id="editSalaryModal" tabindex="-1" aria-labelledby="editSalaryModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editSalaryModalLabel">
-                                            Edit salary
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="d-flex flex-column gap-3">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                            <!-- edit -->
+                            <div class="modal fade" id="editSalaryModal" tabindex="-1" aria-labelledby="editSalaryModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editSalaryModalLabel">
+                                                Edit salary
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="d-flex flex-column gap-3">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Hủy
-                                        </button>
-                                        <button type="button" class="btn btn-primary">lưu</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Hủy
+                                            </button>
+                                            <button type="button" class="btn btn-primary">lưu</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <?php
-                        // session_start();
-                        // include_once('connect.php');
+                            <!-- show data -->
+                            <?php
+                            $soefficientsalarydata = mysqli_query($conn, "SELECT devloper.level, soefficientsalary.hesoluong FROM devloper INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT manager.level, soefficientsalary.hesoluong FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID");
 
-                        // mysqli_set_charset($conn, "utf8");
-                        $result = mysqli_query($conn, "SELECT * FROM soefficientsalary");
-
-                        echo "<table>
+                            echo "<table>
                             <thead>
                                 <tr>
                                     <th>level</th>
@@ -684,8 +657,8 @@ if (isset($_POST["addhsluong"])) {
                                 </tr>
                             </thead>";
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo ("
+                            while ($row = mysqli_fetch_assoc($soefficientsalarydata)) {
+                                echo ("
                                 <tbody>
                                     <tr>
                                         <td>{$row["level"]}</td>
@@ -703,63 +676,6 @@ if (isset($_POST["addhsluong"])) {
                                                 Xóa
                                             </button>
                                         </td>
-                                    </tr>
-                                    ");
-                        }
-                        echo "<tr>
-                                        <td colspan='9'>
-                                            <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
-                                            </nav>
-                                        </td>
-                                    </tr>
-                            </tbody>
-                            </table>";
-
-                        // mysqli_close($conn);
-                        ?>
-                    </div>
-                    <div class="tab-pane fade" id="thongke" role="tabpanel" aria-labelledby="thongke-tab">
-                        <div class="table-bg">
-                            <?php
-                            // session_start();
-                            // include_once('connect.php');
-
-                            // mysqli_set_charset($conn, "utf8");
-                            $result = mysqli_query($conn, "SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.level = soefficientsalary.level UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.level = soefficientsalary.level");
-
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Tên nhân viên</th>
-                                    <th>Lương 1 tháng</th>
-                                    <th>Số giờ</th>
-                                </tr>
-                            </thead>";
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo ("
-                                <tbody>
-                                    <tr>
-                                        <td>{$row["ten"]}</td>
-                                        <td>{$row["luong"]}</td>
-                                        <td>{$row["sogio"]}</td>
                                     </tr>
                                     ");
                             }
@@ -789,13 +705,64 @@ if (isset($_POST["addhsluong"])) {
                             </tbody>
                             </table>";
 
-                            // mysqli_close($conn);
+                            ?>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="thongke" role="tabpanel" aria-labelledby="thongke-tab">
+                        <div class="table-bg">
+                            <!-- show data -->
+                            <?php
+                            $thongke = mysqli_query($conn, "SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
+
+                            echo "<table>
+                            <thead>
+                                <tr>
+                                    <th>Tên nhân viên</th>
+                                    <th>Lương 1 tháng</th>
+                                    <th>Số giờ</th>
+                                </tr>
+                            </thead>";
+
+                            while ($row = mysqli_fetch_assoc($thongke)) {
+                                echo ("
+                                <tbody>
+                                    <tr>
+                                        <td>{$row["ten"]}</td>
+                                        <td>{$row["luong"]}</td>
+                                        <td>{$row["sogio"]}</td>
+                                    </tr>
+                                    ");
+                            }
+                            echo "  <tr>
+                                        <td colspan='3'>
+                                            <nav aria-label='Page navigation panigation'>
+                                            <ul class='pagination'>
+                                                <li class='page-item'>
+                                                <a class='page-link' href='#'>Previous</a>
+                                                </li>
+                                                <li class='page-item'>
+                                                <a class='page-link' href='#'>1</a>
+                                                </li>
+                                                <li class='page-item'>
+                                                <a class='page-link' href='#'>2</a>
+                                                </li>
+                                                <li class='page-item'>
+                                                <a class='page-link' href='#'>3</a>
+                                                </li>
+                                                <li class='page-item'>
+                                                <a class='page-link' href='#'>Next</a>
+                                                </li>
+                                            </ul>
+                                            </nav>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                            </table>";
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- script -->
