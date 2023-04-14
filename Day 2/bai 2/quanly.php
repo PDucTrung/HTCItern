@@ -15,7 +15,8 @@ mysqli_set_charset($conn, "utf8");
     <title>Quản lý nhân sự</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="UI/style.css" />
 </head>
 
@@ -1058,6 +1059,7 @@ mysqli_set_charset($conn, "utf8");
                             LIMIT $start, $limit"
                             );
                             ?>
+
                             <table>
                                 <thead>
                                     <tr>
@@ -1150,6 +1152,14 @@ mysqli_set_charset($conn, "utf8");
                             $prev_page = $current_page - 1;
                             $next_page = $current_page + 1;
 
+                            // sort
+                            $columns = array('ten', 'luong', 'sogio');
+
+                            $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
+
+                            $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+                            // 
+
                             $thongke = mysqli_query($conn, "SELECT staff.ten,work.sogio, 
                             staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
                             FROM Staff 
@@ -1160,24 +1170,47 @@ mysqli_set_charset($conn, "utf8");
                             FROM Staff 
                             INNER JOIN manager on Staff.StaffID = manager.StaffID 
                             INNER JOIN work ON manager.StaffID = work.staffID 
-                            INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID 
+                            INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID
+                            ORDER BY $column $sort_order
                             LIMIT $start, $limit");
+                            ?>
+
+                            <!-- sort -->
+                            <?php
+                            if ($thongke) {
+                                // Some variables we need for the table.
+                                $up_or_down = str_replace(array('ASC', 'DESC'), array('up', 'down'), $sort_order);
+                                $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+                                $add_class = ' class="highlight"';
                             ?>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Tên nhân viên</th>
-                                        <th>Lương 1 tháng</th>
-                                        <th>Số giờ</th>
+                                        <th>
+                                            <a href="quanly.php?column=ten&order=<?php echo $asc_or_desc; ?>">Tên
+                                                nhân viên <i class="fas fa-sort"></i></a>
+                                        </th>
+                                        <th>
+                                            <a href="quanly.php?column=luong&order=<?php echo $asc_or_desc; ?>">Lương 1
+                                                tháng <i class="fas fa-sort"></i></a>
+                                        </th>
+                                        <th>
+                                            <a href="quanly.php?column=sogio&order=<?php echo $asc_or_desc; ?>">Số giờ
+                                                <i class="fas fa-sort"></i></a>
+                                        </th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <?php while ($row = mysqli_fetch_assoc($thongke)) { ?>
                                     <tr>
-                                        <td><?php echo $row["ten"] ?></td>
-                                        <td><?php echo $row["luong"] ?></td>
-                                        <td><?php echo $row["sogio"] ?></td>
+                                        <td <?php echo $column == 'ten' ? $add_class : ''; ?>>
+                                            <?php echo $row["ten"] ?>
+                                        </td>
+                                        <td <?php echo $column == 'luong' ? $add_class : ''; ?>>
+                                            <?php echo $row["luong"] ?></td>
+                                        <td <?php echo $column == 'sogio' ? $add_class : ''; ?>>
+                                            <?php echo $row["sogio"] ?></td>
                                     </tr>
 
                                     <?php } ?>
@@ -1186,38 +1219,41 @@ mysqli_set_charset($conn, "utf8");
                                             <nav aria-label='Page navigation panigation'>
                                                 <ul class='pagination'>
                                                     <?php
-                                                    if ($current_page > 1 && $total_page > 1) {
+                                                        if ($current_page > 1 && $total_page > 1) {
 
-                                                        echo "<li class='page-item'>
+                                                            echo "<li class='page-item'>
                                                                 <a class='page-link'href='quanly.php?pagethongke=$prev_page'>Prev</a>
                                                         </li>";
-                                                    }
-
-                                                    for ($i = 1; $i <= $total_page; $i++) {
-                                                        if ($i == $current_page) {
-                                                            echo "<li class='page-item active'>
-                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
-                                                        </li>";
-                                                        } else {
-                                                            echo "<li class='page-item'>
-                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
-                                                        </li>";
                                                         }
-                                                    }
 
-                                                    if ($current_page < $total_page && $total_page > 1) {
+                                                        for ($i = 1; $i <= $total_page; $i++) {
+                                                            if ($i == $current_page) {
+                                                                echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
+                                                        </li>";
+                                                            } else {
+                                                                echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
+                                                        </li>";
+                                                            }
+                                                        }
 
-                                                        echo "<li class='page-item'>
+                                                        if ($current_page < $total_page && $total_page > 1) {
+
+                                                            echo "<li class='page-item'>
                                                                 <a class='page-link'href='quanly.php?pagethongke=$next_page'>Next</a>
                                                         </li>";
-                                                    }
-                                                    ?>
+                                                        }
+                                                        ?>
                                                 </ul>
                                             </nav>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <?php
+                                // $thongke->free(); 
+                            } ?>
                         </div>
                     </div>
                 </div>
