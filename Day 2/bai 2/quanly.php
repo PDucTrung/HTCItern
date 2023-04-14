@@ -259,7 +259,31 @@ mysqli_set_charset($conn, "utf8");
 
                             <!--  -->
                             <?php
-                            $devdata = mysqli_query($conn, "SELECT devloper.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.StaffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID"); ?>
+                            $sql = "SELECT COUNT(StaffID) AS total FROM devloper";
+                            $result = mysqli_query($conn, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
+
+                            $current_page = isset($_GET['pagedev']) ? $_GET['pagedev'] : 1;
+                            $limit = 3;
+
+                            $total_page = ceil($total_records / $limit);
+
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            $start = ($current_page - 1) * $limit;
+                            $prev_page = $current_page - 1;
+                            $next_page = $current_page + 1;
+                            $devdata = mysqli_query($conn, "SELECT devloper.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, 
+                            staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+                            FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
+                            INNER JOIN work ON devloper.StaffID = work.StaffID 
+                            INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
+                            LIMIT $start, $limit"); ?>
 
                             <!-- show data -->
                             <table>
@@ -308,21 +332,32 @@ mysqli_set_charset($conn, "utf8");
                                         <td colspan='10'>
                                             <nav aria-label='Page navigation panigation'>
                                                 <ul class='pagination'>
-                                                    <li class='page-item'>
-                                                        <a class='page-link' href='#'>Previous</a>
-                                                    </li>
-                                                    <li class='page-item'>
-                                                        <a class='page-link' href='#'>1</a>
-                                                    </li>
-                                                    <li class='page-item'>
-                                                        <a class='page-link' href='#'>2</a>
-                                                    </li>
-                                                    <li class='page-item'>
-                                                        <a class='page-link' href='#'>3</a>
-                                                    </li>
-                                                    <li class='page-item'>
-                                                        <a class='page-link' href='#'>Next</a>
-                                                    </li>
+                                                    <?php
+                                                    if ($current_page > 1 && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagedev=$prev_page'>Prev</a>
+                                                        </li>";
+                                                    }
+
+                                                    for ($i = 1; $i <= $total_page; $i++) {
+                                                        if ($i == $current_page) {
+                                                            echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagedev=$i'>$i</a>
+                                                        </li>";
+                                                        } else {
+                                                            echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagedev=$i'>$i</a>
+                                                        </li>";
+                                                        }
+                                                    }
+
+                                                    if ($current_page < $total_page && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagedev=$next_page'>Next</a>
+                                                        </li>";
+                                                    }
+
+                                                    ?>
                                                 </ul>
                                             </nav>
                                         </td>
@@ -519,83 +554,112 @@ mysqli_set_charset($conn, "utf8");
 
                             <!-- show data -->
                             <?php
-                            $managerdata = mysqli_query($conn, "SELECT manager.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.StaffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
+                            $sql = "SELECT COUNT(StaffID) AS total FROM manager";
+                            $result = mysqli_query($conn, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
 
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Tên</th>
-                                    <th>Tuổi</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Số năm kinh nghiệm</th>
-                                    <th>Lương cơ bản</th>
-                                    <th>Level</th>
-                                    <th>Lương</th>                                   
-                                    <th></th>
-                                </tr>
-                            </thead>";
+                            $current_page = isset($_GET['pagemanager']) ? $_GET['pagemanager'] : 1;
+                            $limit = 3;
 
-                            while ($row = mysqli_fetch_assoc($managerdata)) {
-                                echo ("
-                                <tbody>
+                            $total_page = ceil($total_records / $limit);
+
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            $start = ($current_page - 1) * $limit;
+                            $prev_page = $current_page - 1;
+                            $next_page = $current_page + 1;
+                            $managerdata = mysqli_query(
+                                $conn,
+                                "SELECT manager.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, 
+                            staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' 
+                            FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID 
+                            INNER JOIN work ON manager.StaffID = work.StaffID 
+                            INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID 
+                            LIMIT $start, $limit"
+                            );
+                            ?>
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{$row["ten"]}</td>
-                                        <td>{$row["tuoi"]}</td>
-                                        <td>{$row["diachi"]}</td>
-                                        <td>{$row["ngaysinh"]}</td>
-                                        <td>{$row["namkinhnghiem"]}</td>
-                                        <td>{$row["luongcoban"]}</td>
-                                        <td>{$row["level"]}</td>
-                                        <td>{$row["luong"]}</td>
-                            
+                                        <th>Tên</th>
+                                        <th>Tuổi</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Số năm kinh nghiệm</th>
+                                        <th>Lương cơ bản</th>
+                                        <th>Level</th>
+                                        <th>Lương</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($managerdata)) { ?>
+                                    <tr>
+                                        <td><?php echo $row["ten"] ?></td>
+                                        <td><?php echo $row["tuoi"] ?></td>
+                                        <td><?php echo $row["diachi"] ?></td>
+                                        <td><?php echo $row["ngaysinh"] ?></td>
+                                        <td><?php echo $row["namkinhnghiem"] ?></td>
+                                        <td><?php echo $row["luongcoban"] ?></td>
+                                        <td><?php echo $row["level"] ?></td>
+                                        <td><?php echo $row["luong"] ?></td>
+
                                         <td>
-                                            <button
-                                            type='button'
-                                            class='btn btn-primary'
-                                            data-bs-toggle='modal'
-                                            data-bs-target='#editManagerModal'
-                                            >
+                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal'
+                                                data-bs-target='#editManagerModal'>
                                                 Sửa
                                             </button>
-                                            <button type='button' 
-                                            class='btn btn-danger'
-                                            data-bs-toggle='modal' 
-                                            data-bs-target='#deleteManagerModal'
-                                            onclick='deleteManager({$row["StaffID"]})'
-                                            >
+                                            <button type='button' class='btn btn-danger' data-bs-toggle='modal'
+                                                data-bs-target='#deleteManagerModal'
+                                                onclick='deleteManager(<?php echo $row["StaffID"] ?>)'>
                                                 Xóa
                                             </button>
                                         </td>
                                     </tr>
-                                    ");
-                            }
-                            echo "<tr>
+                                    <?php } ?>
+
+                                    <tr>
                                         <td colspan='9'>
                                             <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
+                                                <ul class='pagination'>
+                                                    <?php
+                                                    if ($current_page > 1 && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagemanager=$prev_page'>Prev</a>
+                                                        </li>";
+                                                    }
+
+                                                    for ($i = 1; $i <= $total_page; $i++) {
+                                                        if ($i == $current_page) {
+                                                            echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagemanager=$i'>$i</a>
+                                                        </li>";
+                                                        } else {
+                                                            echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagemanager=$i'>$i</a>
+                                                        </li>";
+                                                        }
+                                                    }
+
+                                                    if ($current_page < $total_page && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagemanager=$next_page'>Next</a>
+                                                        </li>";
+                                                    }
+
+                                                    ?>
+                                                </ul>
                                             </nav>
                                         </td>
                                     </tr>
-                            </tbody>
-                            </table>";
-                            ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="work" role="tabpanel" aria-labelledby="contact-tab">
@@ -739,75 +803,111 @@ mysqli_set_charset($conn, "utf8");
 
                             <!-- show data -->
                             <?php
-                            $workdata = mysqli_query($conn, "SELECT * FROM work");
+                            // Phân trang
+                            // tìm tổng số records
+                            $sql = "SELECT COUNT(StaffID) AS total FROM work";
+                            $result = mysqli_query($conn, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
 
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Nhân viên ID</th>
-                                    <th>Số giờ</th>
-                                    <th>Tháng</th>
-                                    <th>Năm</th>
-                                    <th></th>
-                                </tr>
-                            </thead>";
+                            // LIMIT và CURRENT_PAGE
+                            $current_page = isset($_GET['pagework']) ? $_GET['pagework'] : 1;
+                            $limit = 3;
 
-                            while ($row = mysqli_fetch_assoc($workdata)) {
-                                echo ("
-                                <tbody>
+                            // tổng số trang
+                            $total_page = ceil($total_records / $limit);
+
+                            // Giới hạn current_page trong khoảng 1 đến total_page
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            // Tìm Start
+                            $start = ($current_page - 1) * $limit;
+                            $prev_page = $current_page - 1;
+                            $next_page = $current_page + 1;
+
+                            // Có limit và start rồi thì truy vấn CSDL lấy danh sách 
+                            $workdata = mysqli_query($conn, "SELECT * FROM work LIMIT $start, $limit");
+                            ?>
+
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{$row["StaffID"]}</td>
-                                        <td>{$row["sogio"]}</td>
-                                        <td>{$row["thang"]}</td>
-                                        <td>{$row["nam"]}</td>
+                                        <th>Nhân viên ID</th>
+                                        <th>Số giờ</th>
+                                        <th>Tháng</th>
+                                        <th>Năm</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($workdata)) { ?>
+                                    <tr>
+                                        <td><?php echo $row["StaffID"] ?></td>
+                                        <td><?php echo $row["sogio"] ?></td>
+                                        <td><?php echo $row["thang"] ?></td>
+                                        <td><?php echo $row["nam"] ?></td>
                                         <td>
-                                            <button
-                                            type='button'
-                                            class='btn btn-primary'
-                                            data-bs-toggle='modal'
-                                            data-bs-target='#editWorkModal'
-                                            >
+                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal'
+                                                data-bs-target='#editWorkModal'>
                                                 Sửa
                                             </button>
-                                            <button 
-                                            type='button' 
-                                            class='btn btn-danger btn-del-work'                                          
-                                            data-bs-toggle='modal' 
-                                            data-bs-target='#deleteWorkModal'
-                                            onclick='deleteWork({$row["StaffID"]})'
-                                            >
-                                            Xóa
+                                            <button type='button' class='btn btn-danger btn-del-work'
+                                                data-bs-toggle='modal' data-bs-target='#deleteWorkModal'
+                                                onclick='deleteWork(<?php echo $row["StaffID"]; ?>)'>
+                                                Xóa
                                             </button>
                                         </td>
                                     </tr>
-                                ");
-                            }
-                            echo "<tr>
-                                <td colspan='5'>
-                                    <nav aria-label='Page navigation panigation'>
-                                        <ul class='pagination'>
-                                            <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                            </li>
-                                            <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                            </li>
-                                            <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                            </li>
-                                            <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                            </li>
-                                            <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </td>
-                            </tr>
-                            </tbody>
-                            </table>";
-                            ?>
+
+                                    <?php } ?>
+
+                                    <!-- phan trang -->
+
+                                    <tr>
+                                        <td colspan=' 5'>
+                                            <nav aria-label='Page navigation panigation'>
+                                                <ul class='pagination'>
+                                                    <?php
+                                                    //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                                                    if ($current_page > 1 && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagework=$prev_page'>Prev</a>
+                                                        </li>";
+                                                    }
+
+                                                    // Lặp khoảng giữa
+                                                    for ($i = 1; $i <= $total_page; $i++) {
+                                                        if ($i == $current_page) {
+                                                            echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagework=$i'>$i</a>
+                                                        </li>";
+                                                        } else {
+                                                            echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagework=$i'>$i</a>
+                                                        </li>";
+                                                        }
+                                                    }
+
+                                                    // nếu current_page < $total_page và total_page> 1 mới hiển
+                                                    // thị nút prev
+                                                    if ($current_page < $total_page && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagework=$next_page'>Next</a>
+                                                        </li>";
+                                                    }
+
+                                                    ?>
+                                                </ul>
+                                            </nav>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="salary-tab">
@@ -929,126 +1029,195 @@ mysqli_set_charset($conn, "utf8");
 
                             <!-- show data -->
                             <?php
-                            $soefficientsalarydata = mysqli_query($conn, "SELECT devloper.StaffID,devloper.level, soefficientsalary.hesoluong FROM devloper INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT manager.StaffID,manager.level, soefficientsalary.hesoluong FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID");
+                            $sql = "SELECT COUNT(StaffID) AS total FROM soefficientsalary";
+                            $result = mysqli_query($conn, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
 
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Staff ID</th>
-                                    <th>level</th>
-                                    <th>Hệ số lương</th>
-                                    <th></th>
-                                </tr>
-                            </thead>";
+                            $current_page = isset($_GET['pagesalary']) ? $_GET['pagesalary'] : 1;
+                            $limit = 3;
 
-                            while ($row = mysqli_fetch_assoc($soefficientsalarydata)) {
-                                echo ("
-                                <tbody>
+                            $total_page = ceil($total_records / $limit);
+
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            $start = ($current_page - 1) * $limit;
+                            $prev_page = $current_page - 1;
+                            $next_page = $current_page + 1;
+
+                            $soefficientsalarydata = mysqli_query(
+                                $conn,
+                                "SELECT devloper.StaffID,devloper.level, soefficientsalary.hesoluong FROM devloper 
+                            INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID 
+                            UNION ALL SELECT manager.StaffID,manager.level, soefficientsalary.hesoluong 
+                            FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID 
+                            LIMIT $start, $limit"
+                            );
+                            ?>
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{$row["StaffID"]}</td>
-                                        <td>{$row["level"]}</td>
-                                        <td>{$row["hesoluong"]}</td>
+                                        <th>Staff ID</th>
+                                        <th>level</th>
+                                        <th>Hệ số lương</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($soefficientsalarydata)) { ?>
+                                    <tr>
+                                        <td><?php echo $row["StaffID"] ?></td>
+                                        <td><?php echo $row["level"] ?></td>
+                                        <td><?php echo $row["hesoluong"] ?></td>
                                         <td>
-                                            <button
-                                            type='button'
-                                            class='btn btn-primary'
-                                            data-bs-toggle='modal'
-                                            data-bs-target='#editSalaryModal'
-                                            >
+                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal'
+                                                data-bs-target='#editSalaryModal'>
                                                 Sửa
                                             </button>
-                                            <button type='button' 
-                                            class='btn btn-danger'
-                                            data-bs-toggle='modal' 
-                                            data-bs-target='#deleteSalaryModal'
-                                            onclick='deleteSalary({$row["StaffID"]})'
-                                            >
+                                            <button type='button' class='btn btn-danger' data-bs-toggle='modal'
+                                                data-bs-target='#deleteSalaryModal'
+                                                onclick='deleteSalary(<?php echo $row["StaffID"] ?>)'>
                                                 Xóa
                                             </button>
                                         </td>
                                     </tr>
-                                    ");
-                            }
-                            echo "<tr>
-                                        <td colspan='4'>
+                                    <?php } ?>
+
+                                    <tr>
+                                        <td colspan=' 4'>
                                             <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
+                                                <ul class='pagination'>
+                                                    <?php
+
+                                                    if ($current_page > 1 && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagesalary=$prev_page'>Prev</a>
+                                                        </li>";
+                                                    }
+
+                                                    for ($i = 1; $i <= $total_page; $i++) {
+                                                        if ($i == $current_page) {
+                                                            echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagesalary=$i'>$i</a>
+                                                        </li>";
+                                                        } else {
+                                                            echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagesalary=$i'>$i</a>
+                                                        </li>";
+                                                        }
+                                                    }
+
+                                                    if ($current_page < $total_page && $total_page > 1) {
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagesalary=$next_page'>Next</a>
+                                                        </li>";
+                                                    }
+                                                    ?>
+                                                </ul>
                                             </nav>
                                         </td>
                                     </tr>
-                            </tbody>
-                            </table>";
-
-                            ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="thongke" role="tabpanel" aria-labelledby="thongke-tab">
                         <div class="table-bg">
                             <!-- show data -->
                             <?php
-                            $thongke = mysqli_query($conn, "SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID INNER JOIN work ON devloper.StaffID = work.staffID INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID INNER JOIN work ON manager.StaffID = work.staffID INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID");
+                            $sql = "SELECT COUNT(StaffID) AS total FROM staff";
+                            $result = mysqli_query($conn, $sql);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
 
-                            echo "<table>
-                            <thead>
-                                <tr>
-                                    <th>Tên nhân viên</th>
-                                    <th>Lương 1 tháng</th>
-                                    <th>Số giờ</th>
-                                </tr>
-                            </thead>";
+                            $current_page = isset($_GET['pagethongke']) ? $_GET['pagethongke'] : 1;
+                            $limit = 3;
 
-                            while ($row = mysqli_fetch_assoc($thongke)) {
-                                echo ("
-                                <tbody>
-                                    <tr>
-                                        <td>{$row["ten"]}</td>
-                                        <td>{$row["luong"]}</td>
-                                        <td>{$row["sogio"]}</td>
-                                    </tr>
-                                    ");
+                            $total_page = ceil($total_records / $limit);
+
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
                             }
-                            echo "  <tr>
+
+                            $start = ($current_page - 1) * $limit;
+                            $prev_page = $current_page - 1;
+                            $next_page = $current_page + 1;
+
+                            $thongke = mysqli_query($conn, "SELECT staff.ten,work.sogio, 
+                            staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+                            FROM Staff 
+                            INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
+                            INNER JOIN work ON devloper.StaffID = work.staffID 
+                            INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
+                            UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
+                            FROM Staff 
+                            INNER JOIN manager on Staff.StaffID = manager.StaffID 
+                            INNER JOIN work ON manager.StaffID = work.staffID 
+                            INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID 
+                            LIMIT $start, $limit");
+                            ?>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tên nhân viên</th>
+                                        <th>Lương 1 tháng</th>
+                                        <th>Số giờ</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($thongke)) { ?>
+                                    <tr>
+                                        <td><?php echo $row["ten"] ?></td>
+                                        <td><?php echo $row["luong"] ?></td>
+                                        <td><?php echo $row["sogio"] ?></td>
+                                    </tr>
+
+                                    <?php } ?>
+                                    <tr>
                                         <td colspan='3'>
                                             <nav aria-label='Page navigation panigation'>
-                                            <ul class='pagination'>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Previous</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>1</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>2</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>3</a>
-                                                </li>
-                                                <li class='page-item'>
-                                                <a class='page-link' href='#'>Next</a>
-                                                </li>
-                                            </ul>
+                                                <ul class='pagination'>
+                                                    <?php
+                                                    if ($current_page > 1 && $total_page > 1) {
+
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagethongke=$prev_page'>Prev</a>
+                                                        </li>";
+                                                    }
+
+                                                    for ($i = 1; $i <= $total_page; $i++) {
+                                                        if ($i == $current_page) {
+                                                            echo "<li class='page-item active'>
+                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
+                                                        </li>";
+                                                        } else {
+                                                            echo "<li class='page-item'>
+                                                            <a class='page-link' href='quanly.php?pagethongke=$i'>$i</a>
+                                                        </li>";
+                                                        }
+                                                    }
+
+                                                    if ($current_page < $total_page && $total_page > 1) {
+
+                                                        echo "<li class='page-item'>
+                                                                <a class='page-link'href='quanly.php?pagethongke=$next_page'>Next</a>
+                                                        </li>";
+                                                    }
+                                                    ?>
+                                                </ul>
                                             </nav>
                                         </td>
                                     </tr>
-                            </tbody>
-                            </table>";
-                            ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
