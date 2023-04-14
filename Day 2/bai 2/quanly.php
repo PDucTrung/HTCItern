@@ -1,5 +1,4 @@
 <?php
-// session_start();
 include 'connect.php';
 
 mysqli_set_charset($conn, "utf8");
@@ -171,7 +170,7 @@ mysqli_set_charset($conn, "utf8");
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="StaffID"
                                                             name="staffid" aria-label="StaffID"
-                                                            aria-describedby="basic-addon1" />
+                                                            aria-describedby="basic-addon1" id="editdev_id" readonly />
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Ten"
@@ -283,7 +282,7 @@ mysqli_set_charset($conn, "utf8");
                             $prev_page = $current_page - 1;
                             $next_page = $current_page + 1;
                             $devdata = mysqli_query($conn, "SELECT devloper.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, 
-                            staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+                            staff.luongcoban + (work.sogio * 50000) * soefficientsalary.hesoluong AS 'luong' 
                             FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
                             INNER JOIN work ON devloper.StaffID = work.StaffID 
                             INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
@@ -321,7 +320,8 @@ mysqli_set_charset($conn, "utf8");
                                         <td><?php echo $row["luong"]; ?></td>
                                         <td>
                                             <button type='button' class='btn btn-primary' data-bs-toggle='modal'
-                                                data-bs-target='#editDevModal'>
+                                                data-bs-target='#editDevModal'
+                                                onclick='editDev(<?php echo $row["StaffID"] ?>)'>
                                                 Sửa
                                             </button>
                                             <button type='button' class='btn btn-danger' data-bs-toggle='modal'
@@ -474,7 +474,8 @@ mysqli_set_charset($conn, "utf8");
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="StaffID"
                                                             name="staffid" aria-label="StaffID"
-                                                            aria-describedby="basic-addon1" />
+                                                            aria-describedby="basic-addon1" id="editmanager_id"
+                                                            readonly />
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Ten"
@@ -619,7 +620,8 @@ mysqli_set_charset($conn, "utf8");
 
                                         <td>
                                             <button type='button' class='btn btn-primary' data-bs-toggle='modal'
-                                                data-bs-target='#editManagerModal'>
+                                                data-bs-target='#editManagerModal'
+                                                onclick='editManager(<?php echo $row["StaffID"] ?>)'>
                                                 Sửa
                                             </button>
                                             <button type='button' class='btn btn-danger' data-bs-toggle='modal'
@@ -751,7 +753,8 @@ mysqli_set_charset($conn, "utf8");
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="staffid"
                                                             placeholder="Staff ID" aria-label="Username"
-                                                            aria-describedby="basic-addon1" />
+                                                            id="editwork_id" aria-describedby="basic-addon1" value=""
+                                                            readonly />
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="sogio"
@@ -862,7 +865,8 @@ mysqli_set_charset($conn, "utf8");
                                         <td><?php echo $row["nam"] ?></td>
                                         <td>
                                             <button type='button' class='btn btn-primary' data-bs-toggle='modal'
-                                                data-bs-target='#editWorkModal'>
+                                                data-bs-target='#editWorkModal'
+                                                onclick='editWork(<?php echo $row["StaffID"] ?>)'>
                                                 Sửa
                                             </button>
                                             <button type='button' class='btn btn-danger btn-del-work'
@@ -988,7 +992,8 @@ mysqli_set_charset($conn, "utf8");
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="staffid"
                                                             placeholder="Staff ID" aria-label="Username"
-                                                            aria-describedby="basic-addon1" />
+                                                            aria-describedby="basic-addon1" id="editsalary_id"
+                                                            readonly />
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" name="hesoluong"
@@ -1087,7 +1092,8 @@ mysqli_set_charset($conn, "utf8");
                                         <td><?php echo $row["hesoluong"] ?></td>
                                         <td>
                                             <button type='button' class='btn btn-primary' data-bs-toggle='modal'
-                                                data-bs-target='#editSalaryModal'>
+                                                data-bs-target='#editSalaryModal'
+                                                onclick='editSalary(<?php echo $row["StaffID"] ?>)'>
                                                 Sửa
                                             </button>
                                             <button type='button' class='btn btn-danger' data-bs-toggle='modal'
@@ -1201,11 +1207,13 @@ mysqli_set_charset($conn, "utf8");
                                                 nhân viên <i class="fas fa-sort"></i></a>
                                         </th>
                                         <th>
-                                            <a href="quanly.php?column=luong&order=<?php echo $asc_or_desc; ?>">Lương 1
+                                            <a href="quanly.php?column=luong&order=<?php echo $asc_or_desc; ?>">Lương
+                                                1
                                                 tháng <i class="fas fa-sort"></i></a>
                                         </th>
                                         <th>
-                                            <a href="quanly.php?column=sogio&order=<?php echo $asc_or_desc; ?>">Số giờ
+                                            <a href="quanly.php?column=sogio&order=<?php echo $asc_or_desc; ?>">Số
+                                                giờ
                                                 <i class="fas fa-sort"></i></a>
                                         </th>
                                     </tr>
@@ -1261,9 +1269,7 @@ mysqli_set_charset($conn, "utf8");
                                     </tr>
                                 </tbody>
                             </table>
-                            <?php
-                                // $thongke->free(); 
-                            } ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -1280,11 +1286,11 @@ mysqli_set_charset($conn, "utf8");
 </html>
 
 <script>
+// delete get id
 let workId = document.querySelector('#deletework_id');
 let salaryId = document.querySelector('#deletesalary_id');
 let devId = document.querySelector('#deletedev_id');
 let managerId = document.querySelector('#deletemanager_id');
-
 
 function deleteWork(id) {
     workId.value = id;
@@ -1296,10 +1302,31 @@ function deleteSalary(id) {
 
 function deleteDev(id) {
     devId.value = id;
-    console.log(devId.value);
 };
 
 function deleteManager(id) {
     managerId.value = id;
+};
+
+// edit get id
+let editdevId = document.querySelector('#editdev_id');
+let editmanagerId = document.querySelector('#editmanager_id');
+let editsalaryId = document.querySelector('#editsalary_id');
+let editworkId = document.querySelector('#editwork_id');
+
+function editDev(id) {
+    editdevId.value = id;
+};
+
+function editManager(id) {
+    editmanagerId.value = id;
+};
+
+function editWork(id) {
+    editworkId.value = id;
+};
+
+function editSalary(id) {
+    editsalaryId.value = id;
 };
 </script>
