@@ -1,5 +1,6 @@
 <?php
 include "connect.php";
+include "quanly.php";
 
 switch ($_GET["action"]) {
     case 'editdev':
@@ -15,20 +16,18 @@ switch ($_GET["action"]) {
 
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $nnlt == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
-            echo '<script> window.location = "quanly.php"; </script>';
         } else {
             $sql = "SELECT * FROM devloper WHERE StaffID='$staffid'";
             $kt = mysqli_query($conn, $sql);
             if (mysqli_num_rows($kt)  == 0) {
                 echo '<script> alert("ID không không tại"); </script>';
-                echo '<script> window.location = "quanly.php"; </script>';
             } else {
                 $staff = "UPDATE staff SET ten='$ten', tuoi='$tuoi', diachi='$diachi', ngaysinh='$ngaysinh', luongcoban='$luongcoban', namkinhnghiem='$sonamkinhnghiem' WHERE StaffID='$staffid'";
                 $dev = "UPDATE devloper SET language='$nnlt', level='$selectlevel' WHERE StaffID='$staffid'";
                 mysqli_query($conn, $staff);
                 mysqli_query($conn, $dev);
                 echo '<script> alert("Data Saved"); </script>';
-                header("location: quanly.php");
+                echo "<script> window.location = 'quanly.php' </script>";
             }
         }
         break;
@@ -45,20 +44,18 @@ switch ($_GET["action"]) {
 
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
-            echo '<script> window.location = "quanly.php"; </script>';
         } else {
             $sql = "SELECT * FROM manager WHERE StaffID='$staffid'";
             $kt = mysqli_query($conn, $sql);
             if (mysqli_num_rows($kt)  == 0) {
                 echo '<script> alert("ID không không tại"); </script>';
-                echo '<script> window.location = "quanly.php"; </script>';
             } else {
                 $staff = "UPDATE staff SET ten='$ten', tuoi='$tuoi', diachi='$diachi', ngaysinh='$ngaysinh', luongcoban='$luongcoban', namkinhnghiem='$sonamkinhnghiem' WHERE StaffID='$staffid'";
                 $manager = "UPDATE manager SET level='$selectlevel' WHERE StaffID='$staffid'";
                 mysqli_query($conn, $staff);
                 mysqli_query($conn, $manager);
                 echo '<script> alert("Data Saved"); </script>';
-                header("location: quanly.php");
+                echo "<script> window.location = 'quanly.php' </script>";
             }
         }
         break;
@@ -71,18 +68,16 @@ switch ($_GET["action"]) {
 
         if ($staffid == "" || $sogio == "" || $thang == "" || $nam == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
-            echo '<script> window.location = "quanly.php"; </script>';
         } else {
             $sql = "SELECT * FROM soefficientsalary WHERE StaffID='$staffid'";
             $kt = mysqli_query($conn, $sql);
             if (mysqli_num_rows($kt)  == 0) {
                 echo '<script> alert("ID không tồn tại"); </script>';
-                echo '<script> window.location = "quanly.php"; </script>';
             } else {
                 $sql = "UPDATE work SET sogio='$sogio', thang='$thang', nam='$nam' WHERE StaffID='$staffid'";
                 mysqli_query($conn, $sql);
                 echo '<script> alert("Data Saved"); </script>';
-                header("location: quanly.php");
+                echo "<script> window.location = 'quanly.php' </script>";
             }
         }
         break;
@@ -93,18 +88,16 @@ switch ($_GET["action"]) {
 
         if ($staffid == "" || $hesoluong == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
-            echo '<script> window.location = "quanly.php"; </script>';
         } else {
             $sql = "SELECT * FROM soefficientsalary WHERE StaffID='$staffid'";
             $kt = mysqli_query($conn, $sql);
             if (mysqli_num_rows($kt)  == 0) {
                 echo '<script> alert("ID Không tồn tại"); </script>';
-                echo '<script> window.location = "quanly.php"; </script>';
             } else {
                 $sql = "UPDATE soefficientsalary SET hesoluong='$hesoluong' WHERE StaffID='$staffid'";
                 mysqli_query($conn, $sql);
                 echo '<script> alert("Data Saved"); </script>';
-                header("location: quanly.php");
+                echo "<script> window.location = 'quanly.php' </script>";
             }
         }
         break;
