@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 12, 2023 lúc 03:46 PM
+-- Thời gian đã tạo: Th4 17, 2023 lúc 06:24 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.1.17
 
@@ -39,7 +39,9 @@ CREATE TABLE `devloper` (
 
 INSERT INTO `devloper` (`StaffID`, `language`, `level`) VALUES
 (2, 'android,css,js', 'junior 1'),
-(3, 'android,php,js', 'junior 2');
+(5, 'Pascal, C++, C', 'junior 2'),
+(3, 'html', 'junior 4'),
+(6, 'python', 'junior 2');
 
 -- --------------------------------------------------------
 
@@ -57,8 +59,9 @@ CREATE TABLE `manager` (
 --
 
 INSERT INTO `manager` (`StaffID`, `level`) VALUES
+(4, 'PM'),
 (1, 'PA'),
-(4, 'PM');
+(7, 'PA');
 
 -- --------------------------------------------------------
 
@@ -67,7 +70,7 @@ INSERT INTO `manager` (`StaffID`, `level`) VALUES
 --
 
 CREATE TABLE `soefficientsalary` (
-  `level` varchar(255) NOT NULL,
+  `StaffID` int(11) NOT NULL,
   `hesoluong` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -75,13 +78,14 @@ CREATE TABLE `soefficientsalary` (
 -- Đang đổ dữ liệu cho bảng `soefficientsalary`
 --
 
-INSERT INTO `soefficientsalary` (`level`, `hesoluong`) VALUES
-('junior 1', 1),
-('junior 2', 2),
-('junior 3', 2),
-('junior 4', 3),
-('PA', 3),
-('PM', 4);
+INSERT INTO `soefficientsalary` (`StaffID`, `hesoluong`) VALUES
+(1, 2),
+(2, 1),
+(4, 3),
+(5, 2),
+(3, 3),
+(6, 1),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -104,10 +108,13 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`StaffID`, `ten`, `tuoi`, `diachi`, `ngaysinh`, `namkinhnghiem`, `luongcoban`) VALUES
-(1, 'trung', 23, 'hoaiduc', '2000-01-01', 1, 2000000),
 (2, 'trung2', 22, 'hanoi', '2000-02-01', 2, 4000000),
-(3, 'trung3', 21, 'hadong', '2000-03-01', 3, 3000000),
-(4, 'trung4', 20, 'namtuliem', '2000-04-01', 4, 1000000);
+(4, 'Tiền', 23, 'Bắc Ninh', '2000-03-03', 2, 3000000),
+(5, 'Thuần', 23, 'Nam sách', '2000-02-02', 1, 1000000),
+(1, 'Trung', 23, 'Hải Dương', '2000-04-04', 3, 2),
+(3, 'Tuyền', 21, 'Nam Định', '2000-11-11', 1, 500000),
+(6, 'trung6', 23, 'Nam sách', '2000-02-02', 2, 1000000),
+(7, 'Long', 23, 'hai duong', '2000-04-04', 1, 4000000);
 
 -- --------------------------------------------------------
 
@@ -116,7 +123,7 @@ INSERT INTO `staff` (`StaffID`, `ten`, `tuoi`, `diachi`, `ngaysinh`, `namkinhngh
 --
 
 CREATE TABLE `work` (
-  `staffID` int(11) NOT NULL,
+  `StaffID` int(11) NOT NULL,
   `sogio` int(11) NOT NULL,
   `thang` int(11) NOT NULL,
   `nam` int(11) NOT NULL
@@ -126,11 +133,14 @@ CREATE TABLE `work` (
 -- Đang đổ dữ liệu cho bảng `work`
 --
 
-INSERT INTO `work` (`staffID`, `sogio`, `thang`, `nam`) VALUES
+INSERT INTO `work` (`StaffID`, `sogio`, `thang`, `nam`) VALUES
 (1, 100, 11, 2),
-(2, 300, 10, 2),
-(3, 400, 1, 1),
-(4, 200, 3, 2);
+(2, 120, 8, 2),
+(4, 200, 3, 2),
+(5, 120, 12, 2),
+(3, 250, 14, 2),
+(6, 250, 1, 2),
+(7, 100, 2, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
