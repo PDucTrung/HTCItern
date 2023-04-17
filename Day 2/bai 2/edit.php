@@ -69,7 +69,7 @@ switch ($_GET["action"]) {
         if ($staffid == "" || $sogio == "" || $thang == "" || $nam == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
         } else {
-            $sql = "SELECT * FROM soefficientsalary WHERE StaffID='$staffid'";
+            $sql = "SELECT * FROM work WHERE StaffID='$staffid'";
             $kt = mysqli_query($conn, $sql);
             if (mysqli_num_rows($kt)  == 0) {
                 echo '<script> alert("ID không tồn tại"); </script>';
