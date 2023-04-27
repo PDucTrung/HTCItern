@@ -17,6 +17,7 @@ switch ($_GET["action"]) {
         $dev = new database();
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $nnlt == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
             $staff->update('staff', ['ten' => $ten, 'tuoi' => $tuoi, 'diachi' => $diachi, 'ngaysinh' => $ngaysinh, 'namkinhnghiem' => $sonamkinhnghiem, 'luongcoban' => $luongcoban], "StaffID= '$staffid'");
             $dev->update('devloper', ['language' => $nnlt, 'level' => $selectlevel], "staffid= '$staffid'");
@@ -39,6 +40,7 @@ switch ($_GET["action"]) {
         $manager = new database();
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
             $staff->update('staff', ['ten' => $ten, 'tuoi' => $tuoi, 'diachi' => $diachi, 'ngaysinh' => $ngaysinh, 'namkinhnghiem' => $sonamkinhnghiem, 'luongcoban' => $luongcoban], "StaffID= '$staffid'");
             $manager->update('manager', ['level' => $selectlevel], "staffid= '$staffid'");
@@ -56,6 +58,7 @@ switch ($_GET["action"]) {
         $work = new database();
         if ($staffid == "" || $sogio == "" || $thang == "" || $nam == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
             $work->update('work', ['sogio' => $sogio, 'thang' => $thang, 'nam' => $nam], "StaffID= '$staffid'");
             if ($work) {
@@ -70,6 +73,7 @@ switch ($_GET["action"]) {
         $salary = new database();
         if ($staffid == "" || $hesoluong == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
             $salary->update('soefficientsalary', ['hesoluong' => $hesoluong], "StaffID= '$staffid'");
             if ($salary) {

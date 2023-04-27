@@ -1,7 +1,6 @@
 <?php
 include 'database.php';
 $db = new Database();
-$conn = $db->conn;
 
 switch ($_GET["action"]) {
     case 'adddev':
@@ -19,12 +18,12 @@ switch ($_GET["action"]) {
         $dev = new database();
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $nnlt == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
-            $sql = "SELECT * FROM staff WHERE StaffID='$staffid'";
-            $kt = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($kt)  > 0) {
+            if (mysqli_num_rows($db->check_id("staff", "*", "StaffID='$staffid'"))  > 0) {
 
                 echo '<script> alert("ID đã tồn tại"); </script>';
+                echo "<script> window.location = 'quanly.php' </script>";
             } else {
                 $staff->insert('staff', ['StaffID' => $staffid, 'ten' => $ten, 'tuoi' => $tuoi, 'diachi' => $diachi, 'ngaysinh' => $ngaysinh, 'namkinhnghiem' => $sonamkinhnghiem, 'luongcoban' => $luongcoban]);
                 $dev->insert('devloper', ['StaffID' => $staffid, 'language' => $nnlt, 'level' => $selectlevel]);
@@ -49,11 +48,11 @@ switch ($_GET["action"]) {
         $manager = new database();
         if ($staffid == "" || $ten == "" || $tuoi == "" || $diachi == "" || $ngaysinh == "" || $sonamkinhnghiem == "" || $luongcoban == "" || $selectlevel == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
-            $sql = "SELECT * FROM staff WHERE StaffID='$staffid'";
-            $kt = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($kt)  > 0) {
+            if (mysqli_num_rows($db->check_id("staff", "*", "StaffID='$staffid'"))  > 0) {
                 echo '<script> alert("ID đã tồn tại"); </script>';
+                echo "<script> window.location = 'quanly.php' </script>";
             } else {
                 $staff->insert('staff', ['StaffID' => $staffid, 'ten' => $ten, 'tuoi' => $tuoi, 'diachi' => $diachi, 'ngaysinh' => $ngaysinh, 'namkinhnghiem' => $sonamkinhnghiem, 'luongcoban' => $luongcoban]);
                 $manager->insert('manager', ['StaffID' => $staffid, 'level' => $selectlevel]);
@@ -73,11 +72,11 @@ switch ($_GET["action"]) {
         $work = new database();
         if ($staffid == "" || $sogio == "" || $thang == "" || $nam == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
-            $sql = "SELECT * FROM work WHERE StaffID='$staffid'";
-            $kt = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($kt)  > 0) {
+            if (mysqli_num_rows($db->check_id("work", "*", "StaffID='$staffid'"))  > 0) {
                 echo '<script> alert("ID đã tồn tại"); </script>';
+                echo "<script> window.location = 'quanly.php' </script>";
             } else {
                 $work->insert('work', ['StaffID' => $staffid, 'sogio' => $sogio, 'thang' => $thang, 'nam' => $nam]);
                 if ($work) {
@@ -94,11 +93,11 @@ switch ($_GET["action"]) {
         $salary = new database();
         if ($staffid == "" || $hsluong == "") {
             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+            echo "<script> window.location = 'quanly.php' </script>";
         } else {
-            $sql = "SELECT * FROM soefficientsalary WHERE StaffID='$staffid'";
-            $kt = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($kt)  > 0) {
+            if (mysqli_num_rows($db->check_id("soefficientsalary", "*", "StaffID='$staffid'"))  > 0) {
                 echo '<script> alert("ID đã tồn tại"); </script>';
+                echo "<script> window.location = 'quanly.php' </script>";
             } else {
                 $salary->insert('soefficientsalary', ['StaffID' => $staffid, 'hesoluong' => $hsluong]);
                 if ($salary) {

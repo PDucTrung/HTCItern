@@ -6,7 +6,7 @@ class Database
     private $username = 'root';
     private $pass = '';
     private $dbname = 'qlns';
-    public $conn = NULL;
+    private $conn = NULL;
     private $result = [];
 
     // connect database method
@@ -27,6 +27,30 @@ class Database
     {
         $this->result = $this->conn->query($sql);
         return $this->result;
+    }
+
+    // method select
+    public function select($table, $rows = "*", $where = null)
+    {
+        if ($where != null) {
+            $sql = "SELECT $rows FROM $table WHERE $where";
+        } else {
+            $sql = "SELECT $rows FROM $table";
+        }
+
+        return $this->execute($sql);
+    }
+
+    // method check id
+    public function check_id($table, $rows = "*", $where = null)
+    {
+        if ($where != null) {
+            $sql = "SELECT $rows FROM $table WHERE $where";
+        } else {
+            $sql = "SELECT $rows FROM $table";
+        }
+
+        return mysqli_query($this->conn, $sql);
     }
 
     // create method
@@ -62,6 +86,111 @@ class Database
         $sql .= " WHERE $id ";
 
         return $this->execute($sql);
+    }
+
+    // dem so ban ghi
+    public function total_records($table)
+    {
+        $sql = "SELECT COUNT(StaffID) AS total FROM $table";
+        $result = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row['total'];
+    }
+
+    // total page
+    public function get_total_page($table, $limit)
+    {
+        return ceil(($this->total_records($table)) / $limit);
+    }
+
+    // get data and pagination
+    public function get_data($table, $current_page, $limit)
+    {
+        $total_page = $this->get_total_page($table, $limit);
+        if ($current_page > $total_page) {
+            $current_page = $total_page;
+        } else if ($current_page < 1) {
+            $current_page = 1;
+        }
+
+        $start = ($current_page - 1) * $limit;
+
+        switch ($table) {
+            case 'devloper':
+                $sql = "SELECT devloper.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,devloper.language,devloper.level, 
+                        staff.luongcoban + (work.sogio * 50000) * soefficientsalary.hesoluong AS 'luong' 
+                        FROM Staff INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
+                        INNER JOIN work ON devloper.StaffID = work.StaffID 
+                        INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID";
+                break;
+
+            case 'manager':
+                $sql = "SELECT manager.StaffID,staff.ten,staff.tuoi,staff.diachi,staff.ngaysinh,staff.namkinhnghiem,staff.luongcoban,manager.level, 
+                        staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' 
+                        FROM Staff INNER JOIN manager on Staff.StaffID = manager.StaffID 
+                        INNER JOIN work ON manager.StaffID = work.StaffID 
+                        INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID";
+                break;
+
+            case 'work':
+                $sql = "SELECT * FROM work";
+                break;
+
+            case 'soefficientsalary':
+                $sql = "SELECT devloper.StaffID,devloper.level, soefficientsalary.hesoluong FROM devloper 
+                        INNER JOIN soefficientsalary ON devloper.StaffID = soefficientsalary.StaffID 
+                        UNION ALL SELECT manager.StaffID,manager.level, soefficientsalary.hesoluong 
+                        FROM manager INNER JOIN soefficientsalary ON manager.StaffID = soefficientsalary.StaffID";
+                break;
+        }
+
+        $data = mysqli_query($this->conn, "$sql LIMIT $start, $limit");
+        return $data;
+    }
+
+    // method get min value column of table
+    // public function min($table, $column)
+    // {
+    //     $sql = "SELECT MIN($table.$column) FROM $table";
+    //     return $this->execute($sql);
+    // }
+
+    // method get max value column of table
+    // public function max($table, $column)
+    // {
+    //     $sql = "SELECT MAX($table.$column) FROM $table";
+    //     return $this->execute($sql);
+    // }
+
+    // thong ke
+    public function thongke($table, $current_page, $limit, $column, $sort_order, $valuestart, $valueend)
+    {
+        $total_page = $this->get_total_page($table, $limit);
+        if ($current_page > $total_page) {
+            $current_page = $total_page;
+        } else if ($current_page < 1) {
+            $current_page = 1;
+        }
+
+        $start = ($current_page - 1) * $limit;
+
+        $sql = "SELECT * FROM
+                (SELECT staff.ten,work.sogio, 
+                staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+                FROM Staff 
+                INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
+                INNER JOIN work ON devloper.StaffID = work.staffID 
+                INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
+                UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
+                FROM Staff 
+                INNER JOIN manager on Staff.StaffID = manager.StaffID 
+                INNER JOIN work ON manager.StaffID = work.staffID 
+                INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID)
+                as thongke 
+                WHERE thongke.sogio BETWEEN $valuestart AND $valueend";
+
+        $data = mysqli_query($this->conn, "$sql ORDER BY $column $sort_order LIMIT $start, $limit");
+        return $data;
     }
 
     public function __destruct()

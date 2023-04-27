@@ -1,23 +1,9 @@
 <?php
-$sql = "SELECT COUNT(StaffID) AS total FROM staff";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$total_records = $row['total'];
-
 $current_page = isset($_GET['pagethongke']) ? $_GET['pagethongke'] : 1;
+
 $limit = 3;
 
-$total_page = ceil($total_records / $limit);
-
-if ($current_page > $total_page) {
-    $current_page = $total_page;
-} else if ($current_page < 1) {
-    $current_page = 1;
-}
-
-$start = ($current_page - 1) * $limit;
-$prev_page = $current_page - 1;
-$next_page = $current_page + 1;
+$total_page = $db->get_total_page("staff", $limit);
 
 // sort
 $columns = array('ten', 'luong', 'sogio');
@@ -25,19 +11,11 @@ $columns = array('ten', 'luong', 'sogio');
 $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
 
 $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+
+// search
+$valuestart = (isset($_GET["valuestart"]) && $_GET["valuestart"] != "" ? $_GET["valuestart"] : 0);
+$valueend = (isset($_GET["valueend"]) && $_GET["valueend"] != "" ? $_GET["valueend"] : 10000);
 // 
 
 
-$thongke = mysqli_query($conn, "SELECT staff.ten,work.sogio, 
-                        staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
-                        FROM Staff 
-                        INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
-                        INNER JOIN work ON devloper.StaffID = work.staffID 
-                        INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
-                        UNION ALL SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
-                        FROM Staff 
-                        INNER JOIN manager on Staff.StaffID = manager.StaffID 
-                        INNER JOIN work ON manager.StaffID = work.staffID 
-                        INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID
-                        ORDER BY $column $sort_order
-                        LIMIT $start, $limit");
+$thongke = $db->thongke('staff', $current_page, $limit, $column, $sort_order, $valuestart, $valueend);

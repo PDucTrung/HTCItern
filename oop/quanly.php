@@ -1,7 +1,6 @@
 <?php
 include 'database.php';
 $db = new database();
-$conn = $db->conn;
 ?>
 <!DOCTYPE html>
 <html lang="en">
