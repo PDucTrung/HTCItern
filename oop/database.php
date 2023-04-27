@@ -149,18 +149,24 @@ class Database
     }
 
     // method get min value column of table
-    // public function min($table, $column)
-    // {
-    //     $sql = "SELECT MIN($table.$column) FROM $table";
-    //     return $this->execute($sql);
-    // }
+    public function min($table, $column)
+    {
+        $sql = mysqli_query($this->conn, "SELECT MIN($table.$column) AS timemin FROM $table");
+
+        $row = mysqli_fetch_assoc($sql);
+
+        return $row['timemin'];
+    }
 
     // method get max value column of table
-    // public function max($table, $column)
-    // {
-    //     $sql = "SELECT MAX($table.$column) FROM $table";
-    //     return $this->execute($sql);
-    // }
+    public function max($table, $column)
+    {
+        $sql = mysqli_query($this->conn, "SELECT MAX($table.$column) AS timemax FROM $table");
+
+        $row = mysqli_fetch_assoc($sql);
+
+        return $row['timemax'];
+    }
 
     // thong ke
     public function thongke($table, $current_page, $limit, $column, $sort_order, $valuestart, $valueend)

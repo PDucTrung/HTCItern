@@ -25,19 +25,19 @@
             <thead>
                 <tr>
                     <th>
-                        <a href="quanly.php?column=ten&order=<?php echo $asc_or_desc; ?>">
+                        <a href="quanly.php?column=ten&order=<?php echo $asc_or_desc; ?>&pagethongke=<?php echo $current_page; ?>&valuestart=<?php echo $valuestart; ?>&valueend=<?php echo $valueend; ?>">
                             Tên nhân viên
                             <i class="fas fa-sort"></i>
                         </a>
                     </th>
                     <th>
-                        <a href="quanly.php?column=luong&order=<?php echo $asc_or_desc; ?>">Lương
+                        <a href="quanly.php?column=luong&order=<?php echo $asc_or_desc; ?>&pagethongke=<?php echo $current_page; ?>&valuestart=<?php echo $valuestart; ?>&valueend=<?php echo $valueend; ?>">Lương
                             1 tháng
                             <i class="fas fa-sort"></i>
                         </a>
                     </th>
                     <th>
-                        <a href="quanly.php?column=sogio&order=<?php echo $asc_or_desc; ?>">
+                        <a href="quanly.php?column=sogio&order=<?php echo $asc_or_desc; ?>&pagethongke=<?php echo $current_page; ?>&valuestart=<?php echo $valuestart; ?>&valueend=<?php echo $valueend; ?>">
                             Sốgiờ
                             <i class="fas fa-sort"></i>
                         </a>
