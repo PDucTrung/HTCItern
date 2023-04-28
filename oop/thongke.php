@@ -45,8 +45,10 @@ class thongke extends Database
 
         $result = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $total = ceil($row['total'] / $limit);
-        return $total;
+        if ($row['total'] == 0) {
+            return 1;
+        } else
+            return ceil($row['total'] / $limit);
     }
 
     // get data thong ke
