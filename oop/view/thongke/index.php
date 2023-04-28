@@ -31,7 +31,7 @@
 
     <!-- sort -->
     <?php
-    if ($thongke) {
+    if (mysqli_num_rows($thongke) > 0) {
         $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
         $add_class = ' class="highlight"';
     ?>
@@ -88,5 +88,7 @@
                 </tr>
             </tbody>
         </table>
-    <?php } ?>
+    <?php } else {
+        echo "<div class='alert alert-warning'>You Have No Record!</div>";
+    } ?>
 </div>

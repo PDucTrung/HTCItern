@@ -11,25 +11,26 @@ $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET[
 $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
 
 // search
-$min = $db->min("work", "sogio");
-
-$max = $db->max("work", "sogio");
-
 $search = isset($_GET["search"]) && $_GET["search"] != "" ? $_GET["search"] : "sogio";
 
 switch ($search) {
     case "sogio":
-        $valuestart = (isset($_GET["valuestart"]) && $_GET["valuestart"] != "" ? $_GET["valuestart"] : $min);
+        $min = $db->min("work", "sogio");
 
-        $valueend = (isset($_GET["valueend"]) && $_GET["valueend"] != "" ? $_GET["valueend"] : $max);
+        $max = $db->max("work", "sogio");
         break;
     case "luong":
-        $valuestart = (isset($_GET["valuestart"]) && $_GET["valuestart"] != "" ? $_GET["valuestart"] : 0);
+        $min = 0;
 
-        $valueend = (isset($_GET["valueend"]) && $_GET["valueend"] != "" ? $_GET["valueend"] : 10000000);
+        $max = 100000000;
         break;
 }
-// 
-$total_page = $db->get_total_page_thongke($search, $limit, $valuestart, $valueend);
 
-$thongke = $db->thongke($current_page, $limit, $column, $sort_order, $valuestart, $valueend, $search);
+// thong ke
+$valuestart = (isset($_GET["valuestart"]) && $_GET["valuestart"] != "" ? $_GET["valuestart"] : $min);
+
+$valueend = (isset($_GET["valueend"]) && $_GET["valueend"] != "" ? $_GET["valueend"] : $max);
+
+$total_page = $tk->get_total_page_thongke($search, $limit, $valuestart, $valueend);
+
+$thongke = $tk->thongke($current_page, $limit, $column, $sort_order, $valuestart, $valueend, $search);
