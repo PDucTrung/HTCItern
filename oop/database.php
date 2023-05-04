@@ -174,4 +174,3 @@ class Database
     }
 }
 
-include "thongke.php";

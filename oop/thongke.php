@@ -1,43 +1,39 @@
 <?php
-
 class thongke extends Database
 {
+    public $data_sql;
     // thong ke
     // get total page thong ke
+    public function __construct()
+    {
+        parent::__construct();
+        $sql = "SELECT staff.ten,work.sogio, 
+        staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+        FROM Staff 
+        INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
+        INNER JOIN work ON devloper.StaffID = work.staffID 
+        INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
+        UNION ALL 
+        SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
+        FROM Staff 
+        INNER JOIN manager on Staff.StaffID = manager.StaffID 
+        INNER JOIN work ON manager.StaffID = work.staffID 
+        INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID";
+        $this->data_sql = $sql;
+    }
+
     public function get_total_page_thongke($search, $limit, $valuestart, $valueend)
     {
         switch ($search) {
             case "sogio":
                 $sql = "SELECT COUNT(*) AS total FROM
-                (SELECT staff.ten,work.sogio, 
-                staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
-                FROM Staff 
-                INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
-                INNER JOIN work ON devloper.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
-                UNION ALL 
-                SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
-                FROM Staff 
-                INNER JOIN manager on Staff.StaffID = manager.StaffID 
-                INNER JOIN work ON manager.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID)
+                ($this->data_sql)
                 as thongke 
                 WHERE thongke.sogio BETWEEN $valuestart AND $valueend";
                 break;
             case "luong":
                 $sql = "SELECT COUNT(*) AS total FROM
-                (SELECT staff.ten,work.sogio, 
-                staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
-                FROM Staff 
-                INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
-                INNER JOIN work ON devloper.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
-                UNION ALL 
-                SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
-                FROM Staff 
-                INNER JOIN manager on Staff.StaffID = manager.StaffID 
-                INNER JOIN work ON manager.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID)
+                ($this->data_sql)
                 as thongke 
                 WHERE thongke.luong BETWEEN $valuestart AND $valueend";
                 break;
@@ -66,35 +62,13 @@ class thongke extends Database
         switch ($search) {
             case "sogio":
                 $sql = "SELECT * FROM
-                (SELECT staff.ten,work.sogio, 
-                staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
-                FROM Staff 
-                INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
-                INNER JOIN work ON devloper.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
-                UNION ALL 
-                SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
-                FROM Staff 
-                INNER JOIN manager on Staff.StaffID = manager.StaffID 
-                INNER JOIN work ON manager.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID)
+                ($this->data_sql)
                 as thongke 
                 WHERE thongke.sogio BETWEEN $valuestart AND $valueend";
                 break;
             case "luong":
                 $sql = "SELECT * FROM
-                (SELECT staff.ten,work.sogio, 
-                staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
-                FROM Staff 
-                INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
-                INNER JOIN work ON devloper.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
-                UNION ALL 
-                SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
-                FROM Staff 
-                INNER JOIN manager on Staff.StaffID = manager.StaffID 
-                INNER JOIN work ON manager.StaffID = work.staffID 
-                INNER JOIN soefficientsalary on manager.StaffID = soefficientsalary.StaffID)
+                ($this->data_sql)
                 as thongke 
                 WHERE thongke.luong BETWEEN $valuestart AND $valueend";
                 break;
