@@ -168,9 +168,13 @@ class Database
         return $row['timemax'];
     }
 
+    public function convert_to_vnd($price)
+    {
+        return  number_format($price, 0, '', ',') . " đ";
+    }
+
     public function __destruct()
     {
         $this->conn->close();
     }
 }
-

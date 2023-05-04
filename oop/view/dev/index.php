@@ -76,10 +76,10 @@
                     <td><?php echo $row["diachi"]; ?></td>
                     <td><?php echo $row["ngaysinh"]; ?></td>
                     <td><?php echo $row["namkinhnghiem"]; ?></td>
-                    <td><?php echo $row["luongcoban"]; ?></td>
+                    <td><?php echo $db->convert_to_vnd($row["luongcoban"]); ?></td>
                     <td><?php echo $row["language"]; ?></td>
                     <td><?php echo $row["level"]; ?></td>
-                    <td><?php echo $row["luong"]; ?></td>
+                    <td><?php echo $db->convert_to_vnd($row["luong"]); ?></td>
                     <td>
                         <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editDevModal' onclick='edit(<?php echo $row["StaffID"] ?>,"editdev_id")'>
                             Sửa

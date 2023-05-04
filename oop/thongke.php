@@ -8,13 +8,13 @@ class thongke extends Database
     {
         parent::__construct();
         $sql = "SELECT staff.ten,work.sogio, 
-        staff.luongcoban + (work.sogio * 50.000) * soefficientsalary.hesoluong AS 'luong' 
+        staff.luongcoban + (work.sogio * 50000) * soefficientsalary.hesoluong AS 'luong' 
         FROM Staff 
         INNER JOIN devloper on Staff.StaffID = devloper.StaffID 
         INNER JOIN work ON devloper.StaffID = work.staffID 
         INNER JOIN soefficientsalary on devloper.StaffID = soefficientsalary.StaffID 
         UNION ALL 
-        SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30.000 + 50.000 * soefficientsalary.hesoluong) AS 'luong' 
+        SELECT staff.ten,work.sogio, staff.luongcoban + (work.sogio) * (30000 + 50000 * soefficientsalary.hesoluong) AS 'luong' 
         FROM Staff 
         INNER JOIN manager on Staff.StaffID = manager.StaffID 
         INNER JOIN work ON manager.StaffID = work.staffID 

@@ -66,7 +66,7 @@
                             <?php echo $row["ten"] ?>
                         </td>
                         <td <?php echo $column == 'luong' ? $add_class : ''; ?>>
-                            <?php echo $row["luong"] ?>
+                            <?php echo $db->convert_to_vnd($row["luong"]); ?>
                         </td>
                         <td <?php echo $column == 'sogio' ? $add_class : ''; ?>>
                             <?php echo $row["sogio"] ?>
