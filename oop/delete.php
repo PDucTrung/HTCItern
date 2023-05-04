@@ -1,53 +1,62 @@
 <?php
 include "database.php";
 
-switch ($_GET["action"]) {
-    case 'deletedev':
-        $staffid = $_POST["deletedev_id"];
+class delete extends Database
+{
+    public function __construct()
+    {
+        parent::__construct();
+        switch ($_GET["action"]) {
+            case 'deletedev':
+                $staffid = $_POST["deletedev_id"];
 
-        $staff = new database();
-        $dev = new database();
+                $staff = new database();
+                $dev = new database();
 
-        $staff->delete('staff', "StaffID= '$staffid'");
-        $dev->delete('devloper', "StaffID= '$staffid'");
+                $staff->delete('staff', "StaffID= '$staffid'");
+                $dev->delete('devloper', "StaffID= '$staffid'");
 
-        echo '<script> alert("Data Deleted"); </script>';
-        header("location: quanly.php");
+                echo '<script> alert("Data Deleted"); </script>';
+                header("location: quanly.php");
 
-        break;
-    case 'deletemanager':
-        $staffid = $_POST["deletemanager_id"];
+                break;
+            case 'deletemanager':
+                $staffid = $_POST["deletemanager_id"];
 
-        $staff = new database();
-        $manager = new database();
+                $staff = new database();
+                $manager = new database();
 
-        $staff->delete('staff', "StaffID= '$staffid'");
-        $manager->delete('manager', "StaffID= '$staffid'");
+                $staff->delete('staff', "StaffID= '$staffid'");
+                $manager->delete('manager', "StaffID= '$staffid'");
 
-        echo '<script> alert("Data Deleted"); </script>';
-        header("location: quanly.php");
+                echo '<script> alert("Data Deleted"); </script>';
+                header("location: quanly.php");
 
-        break;
-    case 'deletework':
-        $staffid = $_POST["deletework_id"];
+                break;
+            case 'deletework':
+                $staffid = $_POST["deletework_id"];
 
-        $work = new database();
+                $work = new database();
 
-        $work->delete('work', "StaffID= '$staffid'");
+                $work->delete('work', "StaffID= '$staffid'");
 
-        echo '<script> alert("Data Deleted"); </script>';
-        header("location: quanly.php");
+                echo '<script> alert("Data Deleted"); </script>';
+                header("location: quanly.php");
 
-        break;
-    case 'deletesalary':
-        $staffid = $_POST["deletesalary_id"];
+                break;
+            case 'deletesalary':
+                $staffid = $_POST["deletesalary_id"];
 
-        $salary = new database();
+                $salary = new database();
 
-        $salary->delete('soefficientsalary', "StaffID= '$staffid'");
+                $salary->delete('soefficientsalary', "StaffID= '$staffid'");
 
-        echo '<script> alert("Data Deleted"); </script>';
-        header("location: quanly.php");
+                echo '<script> alert("Data Deleted"); </script>';
+                header("location: quanly.php");
 
-        break;
+                break;
+        }
+    }
 }
+
+new delete();

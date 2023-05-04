@@ -89,6 +89,6 @@
             </tbody>
         </table>
     <?php } else {
-        echo "<div class='alert alert-warning'>You Have No Record!</div>";
+        echo "<br/><div class='alert alert-warning'>You Have No Record!</div>";
     } ?>
 </div>
