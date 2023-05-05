@@ -94,7 +94,7 @@
             <!-- phan trang -->
 
             <tr>
-                <td colspan=' 5'>
+                <td colspan='6'>
                     <nav aria-label='Page navigation panigation'>
                         <ul class='pagination'>
                             <?php
