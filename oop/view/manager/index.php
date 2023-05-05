@@ -56,6 +56,7 @@
     <table>
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Tên</th>
                 <th>Tuổi</th>
                 <th>Địa chỉ</th>
@@ -69,8 +70,13 @@
         </thead>
 
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($managerdata)) { ?>
+            <?php
+            $stt = 0;
+            while ($row = mysqli_fetch_assoc($managerdata)) {
+                $stt++;
+            ?>
                 <tr>
+                    <td><?php echo $stt; ?></td>
                     <td><?php echo $row["ten"] ?></td>
                     <td><?php echo $row["tuoi"] ?></td>
                     <td><?php echo $row["diachi"] ?></td>
@@ -93,7 +99,7 @@
             <?php mysqli_free_result($managerdata) ?>
 
             <tr>
-                <td colspan='9'>
+                <td colspan='10'>
                     <nav aria-label='Page navigation panigation'>
                         <ul class='pagination'>
                             <?php

@@ -49,6 +49,7 @@
     <table>
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Staff ID</th>
                 <th>level</th>
                 <th>Hệ số lương</th>
@@ -57,8 +58,13 @@
         </thead>
 
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($soefficientsalarydata)) { ?>
+            <?php
+            $stt = 0;
+            while ($row = mysqli_fetch_assoc($soefficientsalarydata)) {
+                $stt++;
+            ?>
                 <tr>
+                    <td><?php echo $stt; ?></td>
                     <td><?php echo $row["StaffID"] ?></td>
                     <td><?php echo $row["level"] ?></td>
                     <td><?php echo $row["hesoluong"] ?></td>
@@ -75,7 +81,7 @@
             <?php mysqli_free_result($soefficientsalarydata) ?>
 
             <tr>
-                <td colspan=' 4'>
+                <td colspan=' 5'>
                     <nav aria-label='Page navigation panigation'>
                         <ul class='pagination'>
                             <?php

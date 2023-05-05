@@ -56,6 +56,7 @@
     <table>
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Nhân viên ID</th>
                 <th>Số giờ</th>
                 <th>Tháng</th>
@@ -65,8 +66,13 @@
         </thead>
 
         <tbody>
-            <?php while ($row = mysqli_fetch_assoc($workdata)) { ?>
+            <?php
+            $stt = 0;
+            while ($row = mysqli_fetch_assoc($workdata)) {
+                $stt++;
+            ?>
                 <tr>
+                    <td><?php echo $stt; ?></td>
                     <td><?php echo $row["StaffID"] ?></td>
                     <td><?php echo $row["sogio"] ?></td>
                     <td><?php echo $row["thang"] ?></td>

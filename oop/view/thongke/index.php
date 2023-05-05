@@ -38,6 +38,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>
                         <a href="quanly.php?column=ten&order=<?php echo $asc_or_desc; ?>&pagethongke=<?php echo $current_page; ?>&valuestart=<?php echo $valuestart; ?>&valueend=<?php echo $valueend; ?>&search=<?php echo $search; ?>">
                             Tên nhân viên
@@ -60,8 +61,13 @@
             </thead>
 
             <tbody>
-                <?php while ($row = mysqli_fetch_assoc($thongke)) { ?>
+                <?php
+                $stt = 0;
+                while ($row = mysqli_fetch_assoc($thongke)) {
+                    $stt++;
+                ?>
                     <tr>
+                        <td><?php echo $stt; ?></td>
                         <td <?php echo $column == 'ten' ? $add_class : ''; ?>>
                             <?php echo $row["ten"] ?>
                         </td>
@@ -76,7 +82,7 @@
                 <?php } ?>
                 <?php mysqli_free_result($thongke) ?>
                 <tr>
-                    <td colspan='3'>
+                    <td colspan='4'>
                         <nav aria-label='Page navigation panigation'>
                             <ul class='pagination'>
                                 <?php
