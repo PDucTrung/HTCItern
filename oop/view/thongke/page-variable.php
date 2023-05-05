@@ -1,8 +1,6 @@
 <?php
 $current_page = isset($_GET['pagethongke']) ? $_GET['pagethongke'] : 1;
 
-$limit = 3;
-
 // sort
 $columns = array('ten', 'luong', 'sogio');
 
@@ -26,11 +24,10 @@ switch ($search) {
         break;
 }
 
-// thong ke
 $valuestart = (isset($_GET["valuestart"]) && $_GET["valuestart"] != "" ? $_GET["valuestart"] : $min);
 
 $valueend = (isset($_GET["valueend"]) && $_GET["valueend"] != "" ? $_GET["valueend"] : $max);
 
-$total_page = $tk->get_total_page_thongke($search, $limit, $valuestart, $valueend);
+$total_page = $tk->get_total_page_thongke($search, $valuestart, $valueend);
 
-$thongke = $tk->thongke($current_page, $limit, $column, $sort_order, $valuestart, $valueend, $search);
+$thongke = $tk->thongke($current_page, $column, $sort_order, $valuestart, $valueend, $search);

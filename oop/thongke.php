@@ -2,6 +2,8 @@
 class thongke extends Database
 {
     public $data_sql;
+    public $limit = 3;
+    public $total_page;
     // thong ke
     // get total page thong ke
     public function __construct()
@@ -42,7 +44,7 @@ class thongke extends Database
         return $row['salarymax'];
     }
 
-    public function get_total_page_thongke($search, $limit, $valuestart, $valueend)
+    public function get_total_page_thongke($search, $valuestart, $valueend)
     {
         switch ($search) {
             case "sogio":
@@ -61,23 +63,24 @@ class thongke extends Database
 
         $result = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_assoc($result);
+        $this->total_page = ceil($row['total'] / $this->limit);
         if ($row['total'] == 0) {
             return 1;
         } else
-            return ceil($row['total'] / $limit);
+            return $this->total_page;
     }
 
     // get data thong ke
-    public function thongke($current_page, $limit, $column, $sort_order, $valuestart, $valueend, $search)
+    public function thongke($current_page, $column, $sort_order, $valuestart, $valueend, $search)
     {
-        $total_page = $this->get_total_page_thongke($search, $limit, $valuestart, $valueend);
+        $total_page = $this->total_page;
         if ($current_page > $total_page) {
             $current_page = $total_page;
         } else if ($current_page < 1) {
             $current_page = 1;
         }
 
-        $start = ($current_page - 1) * $limit;
+        $start = ($current_page - 1) * $this->limit;
 
         switch ($search) {
             case "sogio":
@@ -94,7 +97,7 @@ class thongke extends Database
                 break;
         }
 
-        $data = mysqli_query($this->conn, "$sql ORDER BY $column $sort_order LIMIT $start, $limit");
+        $data = mysqli_query($this->conn, "$sql ORDER BY $column $sort_order LIMIT $start, $this->limit");
         return $data;
     }
 }

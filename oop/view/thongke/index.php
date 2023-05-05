@@ -26,7 +26,7 @@
     </div>
     <!-- show data -->
     <?php
-    include "page.php"
+    include "page-variable.php"
     ?>
 
     <!-- sort -->

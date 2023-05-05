@@ -49,7 +49,7 @@
     </div>
 
     <!--  -->
-    <?php include "page.php" ?>
+    <?php include "page-variable.php" ?>
 
     <!-- show data -->
     <table>

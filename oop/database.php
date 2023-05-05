@@ -8,6 +8,8 @@ class Database
     private $dbname = 'qlns';
     protected $conn = NULL;
     private $result = [];
+    public $limit = 3;
+    public $total_page;
 
     // connect database method
     public function __construct()
@@ -98,22 +100,23 @@ class Database
     }
 
     // total page
-    public function get_total_page($table, $limit)
+    public function get_total_page($table)
     {
-        return ceil(($this->total_records($table)) / $limit);
+        $this->total_page = ceil(($this->total_records($table)) / $this->limit);
+        return $this->total_page;
     }
 
     // get data and pagination
-    public function get_data($table, $current_page, $limit)
+    public function get_data($table, $current_page)
     {
-        $total_page = $this->get_total_page($table, $limit);
+        $total_page = $this->total_page;
         if ($current_page > $total_page) {
             $current_page = $total_page;
         } else if ($current_page < 1) {
             $current_page = 1;
         }
 
-        $start = ($current_page - 1) * $limit;
+        $start = ($current_page - 1) * $this->limit;
 
         switch ($table) {
             case 'devloper':
@@ -144,7 +147,7 @@ class Database
                 break;
         }
 
-        $data = mysqli_query($this->conn, "$sql LIMIT $start, $limit");
+        $data = mysqli_query($this->conn, "$sql LIMIT $start, $this->limit");
         return $data;
     }
 
