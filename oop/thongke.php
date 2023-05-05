@@ -22,6 +22,26 @@ class thongke extends Database
         $this->data_sql = $sql;
     }
 
+    // get min luong
+    public function min_salary()
+    {
+        $sql = mysqli_query($this->conn, "SELECT MIN(luong) AS salarymin FROM ($this->data_sql) AS thongke");
+
+        $row = mysqli_fetch_assoc($sql);
+
+        return $row['salarymin'];
+    }
+
+    // get max luong
+    public function max_salary()
+    {
+        $sql = mysqli_query($this->conn, "SELECT MAX(luong) AS salarymax FROM ($this->data_sql) AS thongke");
+
+        $row = mysqli_fetch_assoc($sql);
+
+        return $row['salarymax'];
+    }
+
     public function get_total_page_thongke($search, $limit, $valuestart, $valueend)
     {
         switch ($search) {

@@ -20,9 +20,9 @@ switch ($search) {
         $max = $db->max("work", "sogio");
         break;
     case "luong":
-        $min = 0;
+        $min = $tk->min_salary();
 
-        $max = 100000000;
+        $max = $tk->max_salary();
         break;
 }
 
