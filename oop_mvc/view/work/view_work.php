@@ -41,7 +41,7 @@
 
                         //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                         if ($page > 1 && $number_page > 1) {
-                            echo "<li class='page-item'><a class='page-link'href='index.php?controller=work&page=$prev_page'>Prev</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=work&page=$prev_page'>Prev</a></li>";
                         }
 
                         // Lặp khoảng giữa

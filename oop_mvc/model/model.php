@@ -30,6 +30,19 @@ class model
         mysqli_query($con, $sql);
     }
 
+    // check
+    public function check($table, $rows = "*", $where = null)
+    {
+        global $con;
+        if ($where != null) {
+            $sql = "SELECT $rows FROM $table WHERE $where";
+        } else {
+            $sql = "SELECT $rows FROM $table";
+        }
+
+        return mysqli_query($con, $sql);
+    }
+
     // dem so ban ghi
     public function count($sql)
     {

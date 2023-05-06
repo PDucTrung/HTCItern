@@ -19,8 +19,19 @@ class controller_action_hour_do extends controller
                         $month = $_POST["month"];
                         $year = $_POST["year"];
                         $hour = $_POST["hour"];
-                        $this->model->execute("insert into tbl_work(fk_id_worker,number_hour,month,year) values($id_worker,$hour,$month,$year)");
-                        header("location:index.php?controller=worker");
+                        if ($month == "" || $year == "" || $hour == "") {
+                            echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+                            echo "<script> window.location = 'index.php?controller=action_hour_do&id_worker=$id_worker&act=add' </script>";
+                        } else {
+                            $check = $this->model->check("tbl_work", "*", "month=$month and year=$year");
+                            if (mysqli_num_rows($check)  > 0) {
+                                echo "<script> alert('Tháng $month năm $year đã được thêm giờ làm !'); </script>";
+                                echo "<script> window.location = 'index.php?controller=action_hour_do&id_worker=$id_worker&act=add' </script>";
+                            } else {
+                                $this->model->execute("insert into tbl_work(fk_id_worker,number_hour,month,year) values($id_worker,$hour,$month,$year)");
+                                header("location:index.php?controller=worker");
+                            }
+                        }
                     }
                     break;
                 }

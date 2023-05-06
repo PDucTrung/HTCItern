@@ -37,8 +37,13 @@ class controller_action_worker extends controller
                                 $level = 5;
                             }
                         }
-                        $this->model->execute("insert into tbl_worker(fk_id_type_worker,fk_id_level,name_worker,age_worker,address,birth_day,number_year_exp,bassic_pay) values($type_worker,$level,'$name_worker',$age_worker,'$address','$birthday','$number_year_exp','$bassic_pay')");
-                        header("location:index.php?controller=worker");
+                        if ($name_worker == "" || $birthday == "" || $number_year_exp == "" || $address == "" || $age_worker == "" || $type_worker == "" | $bassic_pay == "") {
+                            echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+                            echo "<script> window.location = 'index.php?controller=action_worker&act=add' </script>";
+                        } else {
+                            $this->model->execute("insert into tbl_worker(fk_id_type_worker,fk_id_level,name_worker,age_worker,address,birth_day,number_year_exp,bassic_pay) values($type_worker,$level,'$name_worker',$age_worker,'$address','$birthday','$number_year_exp','$bassic_pay')");
+                            header("location:index.php?controller=worker");
+                        }
                     }
                     break;
                 }
