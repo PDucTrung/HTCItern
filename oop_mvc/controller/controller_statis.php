@@ -5,15 +5,21 @@ class controller_statis extends controller
     {
         parent::__construct();
 
+        $maxhour =  $this->model->max("tbl_work", "number_hour");
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $sort = $_POST["sort"];
             $month = $_POST["month"] == "" ? 0 : $_POST["month"];
             $year = $_POST["year"] == "" ? 0 : $_POST["year"];
+            $start = $_POST["minhour"] == "" ? 0 : $_POST["minhour"];
+            $end = $_POST["maxhour"] == "" ? $maxhour : $_POST["maxhour"];
         } else {
             $sort = $_GET["sort"];
             $month = $_GET["month"] == "" ? 0 : $_GET["month"];
             $year = $_GET["year"] == "" ? 0 : $_GET["year"];
+            $start = $_GET["minhour"] == "" ? 0 : $_GET["minhour"];
+            $end = $_GET["maxhour"] == "" ? $maxhour : $_GET["maxhour"];
         }
 
         // pagination
@@ -21,19 +27,21 @@ class controller_statis extends controller
         $page = isset($_GET["page"]) ? $_GET["page"] : "1";
         $from = ($page - 1) * $record_per_page;
 
+        $filte_hour_sql = "tbl_work.number_hour BETWEEN $start AND $end";
+        $sql = "select * from tbl_worker inner join tbl_work on tbl_worker.pk_id_worker = tbl_work.fk_id_worker WHERE $filte_hour_sql && tbl_work.month = $month && tbl_work.year = $year";
 
         switch ($sort) {
             case "2":
-                $total_record = $this->model->count("select * from tbl_worker inner join tbl_work on tbl_worker.pk_id_worker = tbl_work.fk_id_worker WHERE tbl_work.month = $month && tbl_work.year = $year");
-                $list_worker = $this->model->fetch("select * from tbl_worker inner join tbl_work on tbl_worker.pk_id_worker = tbl_work.fk_id_worker WHERE tbl_work.month = $month && tbl_work.year = $year ORDER BY tbl_work.number_hour DESC limit $from,$record_per_page");
+                $total_record = $this->model->count($sql);
+                $list_worker = $this->model->fetch("$sql ORDER BY tbl_work.number_hour DESC limit $from,$record_per_page");
                 break;
             case "3":
-                $total_record = $this->model->count("select * from tbl_worker");
-                $list_worker = $this->model->fetch("select * from tbl_worker ORDER BY tbl_worker.bassic_pay DESC limit $from,$record_per_page");
+                $total_record = $this->model->count($sql);
+                $list_worker = $this->model->fetch("$sql ORDER BY tbl_worker.bassic_pay DESC limit $from,$record_per_page");
                 break;
             default:
-                $total_record = $this->model->count("select * from tbl_worker");
-                $list_worker = $this->model->fetch("select * from tbl_worker ORDER BY tbl_worker.name_worker DESC limit $from,$record_per_page");
+                $total_record = $this->model->count($sql);
+                $list_worker = $this->model->fetch("$sql ORDER BY tbl_worker.name_worker DESC limit $from,$record_per_page");
         }
 
 

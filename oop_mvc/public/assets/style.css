@@ -5,3 +5,7 @@
 th,td{
     text-align: center;
 }
+
+.pagination{
+    width: max-content !important;
+}

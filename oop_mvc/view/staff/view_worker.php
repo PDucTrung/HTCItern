@@ -41,8 +41,8 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="8">
-                    <ul class="pagination">
+                <td colspan="9">
+                    <ul class="pagination m-auto">
                         <?php
                         $prev_page = $page - 1;
                         $next_page = $page + 1;

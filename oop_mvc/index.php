@@ -1,14 +1,22 @@
 <?php
-include_once "model/controller.php";
-include_once "model/model.php";
+// conn
 include_once "config.php";
-include_once "public/oop/calculatepay.php";
-include_once "public/oop/person.php";
-include_once "public/oop/developer.php";
-include_once "public/oop/managerProduct.php";
-include_once "public/oop/language.php";
 
+// model
+$import_model = ["controller", "model"];
+foreach ($import_model as $item) {
+    include_once "model/$item.php";
+}
+
+// class oop
+$import_oop = ["calculatepay", "person", "developer", "managerProduct", "language"];
+foreach ($import_oop as $item) {
+    include_once "public/oop/$item.php";
+}
+
+// controller
 $controller = "";
 $controller = isset($_GET["controller"]) ? "controller/controller_" . $_GET["controller"] . ".php" : null;
 
+// view
 include_once "view/view_layout.php";
