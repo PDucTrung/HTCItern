@@ -71,6 +71,11 @@ class model
         return $row['max'];
     }
 
+    public function convert_to_vnd($price)
+    {
+        return  number_format($price, 0, '', ',') . " đ";
+    }
+
     // dem so ban ghi
     public function count($sql)
     {

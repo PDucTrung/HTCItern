@@ -1,4 +1,5 @@
 <div>
+    <h4 class="text-center">Quản lý nhân viên</h4>
     <a type="button" class="btn btn-primary" href="index.php?controller=action_worker&act=add">Thêm nhân viên</a>
     <table class="table table-striped mt-5">
         <thead>
@@ -28,7 +29,7 @@
                     <td><?php echo $worker->getYearExp(); ?></td>
                     <td><?php echo $worker->getTypeWorker(); ?></td>
                     <td><?php echo $worker->getLevel(); ?></td>
-                    <td><?php echo $worker->getBasicPay(); ?></td>
+                    <td><?php echo $this->model->convert_to_vnd($worker->getBasicPay()); ?></td>
                     <td>
                         <a class="btn btn-info" type="button" href="index.php?controller=action_hour_do&act=add&id_worker=<?php echo $worker->getId(); ?>">Thêm giờ làm</a>
                         <a class="btn btn-success" type="button" href="index.php?controller=detail_worker&id_worker=<?php echo $worker->getId(); ?>">Chi tiết</a>

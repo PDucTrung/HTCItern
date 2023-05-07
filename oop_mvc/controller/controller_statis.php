@@ -6,20 +6,23 @@ class controller_statis extends controller
         parent::__construct();
 
         $maxhour =  $this->model->max("tbl_work", "number_hour");
+        $maxsalary =  $this->model->max("tbl_worker", "bassic_pay");
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $sort = $_POST["sort"];
+            $filter = $_POST["filter"];
             $month = $_POST["month"] == "" ? 0 : $_POST["month"];
             $year = $_POST["year"] == "" ? 0 : $_POST["year"];
-            $start = $_POST["minhour"] == "" ? 0 : $_POST["minhour"];
-            $end = $_POST["maxhour"] == "" ? $maxhour : $_POST["maxhour"];
+            $start = $_POST["min"] == "" ? 0 : $_POST["min"];
+            $end = $_POST["max"] == "" ? $maxsalary : $_POST["max"];
         } else {
             $sort = $_GET["sort"];
+            $filter = $_GET["filter"];
             $month = $_GET["month"] == "" ? 0 : $_GET["month"];
             $year = $_GET["year"] == "" ? 0 : $_GET["year"];
-            $start = $_GET["minhour"] == "" ? 0 : $_GET["minhour"];
-            $end = $_GET["maxhour"] == "" ? $maxhour : $_GET["maxhour"];
+            $start = $_GET["min"] == "" ? 0 : $_GET["min"];
+            $end = $_GET["max"] == "" ? $maxsalary : $_GET["max"];
         }
 
         // pagination
@@ -27,7 +30,14 @@ class controller_statis extends controller
         $page = isset($_GET["page"]) ? $_GET["page"] : "1";
         $from = ($page - 1) * $record_per_page;
 
-        $filte_hour_sql = "tbl_work.number_hour BETWEEN $start AND $end";
+        switch ($filter) {
+            case "2":
+                $filte_hour_sql = "tbl_worker.bassic_pay BETWEEN $start AND $end";
+                break;
+            default:
+                $filte_hour_sql = "tbl_work.number_hour BETWEEN $start AND $end";
+        }
+
         $sql = "select * from tbl_worker inner join tbl_work on tbl_worker.pk_id_worker = tbl_work.fk_id_worker WHERE $filte_hour_sql && tbl_work.month = $month && tbl_work.year = $year";
 
         switch ($sort) {

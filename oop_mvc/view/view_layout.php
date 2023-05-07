@@ -23,13 +23,13 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.php?controller=worker">Staff</a>
+                                    <a class="nav-link" href="index.php?controller=worker">Nhân Viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.php?controller=work">Work</a>
+                                    <a class="nav-link" href="index.php?controller=work">Thời gian làm việc</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.php?controller=choose_statis">Statis</a>
+                                    <a class="nav-link" href="index.php?controller=choose_statis">Thống kê</a>
                                 </li>
                             </ul>
                         </div>
@@ -40,6 +40,8 @@
                 <?php
                 if (file_exists($controller)) {
                     include_once $controller;
+                } else {
+                    echo "<div class='alert alert-success mt-5 text-center w-75 m-auto'><h4>Welcome to HRM!</h4></div>";
                 }
                 ?>
             </div>

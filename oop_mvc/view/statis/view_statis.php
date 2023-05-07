@@ -1,3 +1,4 @@
+<h4 class="text-center">Thống kê lương nhân viên tháng <?php echo $month ?> năm <?php echo $year ?></h4>
 <table class="table table-bordered border-dark mt-5">
     <?php if (count($arr_worker) > 0) { ?>
         <thead>
@@ -5,8 +6,9 @@
                 <th>STT</th>
                 <th>Tên Nhân Viên</th>
                 <th>Giờ làm việc</th>
-                <th>Lương 1 tháng</th>
+                <th>Lương cơ bản</th>
                 <th>Hệ số</th>
+                <th>Lương tháng <?php echo $month ?></th>
                 <th></th>
             </tr>
         </thead>
@@ -20,8 +22,9 @@
                     <td><?php echo $stt; ?></td>
                     <td><?php echo $worker->getName(); ?></td>
                     <td><?php echo $worker->getHourDo(); ?></td>
-                    <td><?php echo $worker->calculatePay(); ?></td>
+                    <td><?php echo $this->model->convert_to_vnd($worker->getBasicPay()); ?></td>
                     <td><?php echo $worker->getNoun(); ?></td>
+                    <td><?php echo $this->model->convert_to_vnd($worker->calculatePay()); ?></td>                   
                     <td>
                         <a class="btn btn-info" type="button" href="index.php?controller=detail_statis&month=<?php echo $month ?>&year=<?php echo $year ?>&id_worker=<?php echo $worker->getId(); ?>">Chi tiết</a>
                     </td>
@@ -35,7 +38,7 @@
                         <?php
                         $prev_page = $page - 1;
                         $next_page = $page + 1;
-                        $slug = "month=$month&year=$year&sort=$sort&minhour=$start&maxhour=$end";
+                        $slug = "month=$month&year=$year&sort=$sort&filter=$filter&min=$start&max=$end";
                         //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                         if ($page > 1 && $number_page > 1) {
                             echo "<li class='page-item'><a class='page-link' href='index.php?controller=statis&page=$prev_page&$slug'>Prev</a></li>";
@@ -59,6 +62,6 @@
             </tr>
         </tfoot>
     <?php  } else {
-        echo "<div class='alert alert-warning'>You Have No Record!</div>";
+        echo "<div class='alert alert-warning mt-5'>Không tìm thấy bản ghi nào!</div>";
     } ?>
 </table>
