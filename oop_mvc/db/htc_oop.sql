@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 06, 2023 lúc 03:52 PM
+-- Thời gian đã tạo: Th5 07, 2023 lúc 10:12 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.1.17
 
@@ -154,17 +154,17 @@ CREATE TABLE `tbl_work` (
 --
 
 INSERT INTO `tbl_work` (`pk_id_work`, `fk_id_worker`, `number_hour`, `month`, `year`) VALUES
-(1, 1, 8, 7, 2022),
-(2, 1, 8, 8, 2022),
-(3, 1, 7, 9, 2022),
-(4, 1, 7, 10, 2022),
-(5, 2, 6, 7, 2022),
-(6, 2, 9, 8, 2022),
-(7, 2, 6, 9, 2022),
-(8, 3, 8, 7, 2022),
-(9, 4, 5, 7, 2022),
-(10, 4, 7, 8, 2022),
-(13, 5, 8, 7, 2022);
+(1, 1, 160, 7, 2022),
+(2, 1, 168, 8, 2022),
+(3, 1, 172, 9, 2022),
+(4, 1, 180, 10, 2022),
+(5, 2, 170, 7, 2022),
+(6, 2, 150, 8, 2022),
+(7, 2, 160, 9, 2022),
+(8, 3, 180, 7, 2022),
+(9, 4, 157, 7, 2022),
+(10, 4, 171, 8, 2022),
+(13, 5, 182, 7, 2022);
 
 -- --------------------------------------------------------
 
@@ -189,11 +189,11 @@ CREATE TABLE `tbl_worker` (
 --
 
 INSERT INTO `tbl_worker` (`pk_id_worker`, `fk_id_type_worker`, `fk_id_level`, `name_worker`, `age_worker`, `address`, `birth_day`, `number_year_exp`, `bassic_pay`) VALUES
-(1, 1, 4, 'Mr Trung', 20, 'england', '1997-02-06', 10, 50000),
-(2, 1, 2, 'Mr Thuan', 22, 'Italy', '1996-10-10', 3, 50000),
-(3, 1, 3, 'Leona', 19, 'VietNam', '1998-05-05', 6, 100000),
-(4, 2, 5, 'Alista', 21, 'Brazil', '1996-06-08', 2, 50000),
-(5, 2, 6, 'Fizz', 30, 'england', '1988-08-04', 6, 5000000);
+(1, 1, 4, 'Mr Trung', 20, 'england', '2000-07-11', 10, 40000),
+(2, 1, 2, 'Mr Thuan', 22, 'Italy', '2000-10-30', 3, 20000),
+(3, 1, 4, 'Jax', 19, 'VietNam', '2000-05-05', 6, 30000),
+(4, 2, 5, 'Master Yi', 21, 'Brazil', '2000-06-08', 2, 50000),
+(5, 2, 6, 'Sylas', 30, 'england', '2000-08-04', 6, 60000);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -279,13 +279,13 @@ ALTER TABLE `tbl_type_worker`
 -- AUTO_INCREMENT cho bảng `tbl_work`
 --
 ALTER TABLE `tbl_work`
-  MODIFY `pk_id_work` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `pk_id_work` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_worker`
 --
 ALTER TABLE `tbl_worker`
-  MODIFY `pk_id_worker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pk_id_worker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
