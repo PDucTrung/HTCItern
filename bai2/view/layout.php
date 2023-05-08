@@ -1,10 +1,3 @@
-<?php
-include 'database.php';
-include 'thongke.php';
-
-$db = new database();
-$tk = new thongke();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
