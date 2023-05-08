@@ -2,7 +2,6 @@
 
 class controller_detail_worker extends controller
 {
-
     public function __construct()
     {
         parent::__construct();

@@ -1,6 +1,8 @@
 <div>
     <h4 class="text-center">Quản lý nhân viên</h4>
+
     <a type="button" class="btn btn-primary" href="index.php?controller=action_worker&act=add">Thêm nhân viên</a>
+
     <table class="table table-striped mt-5">
         <thead>
             <tr>
@@ -15,6 +17,7 @@
                 <th></th>
             </tr>
         </thead>
+
         <tbody>
             <?php
             $stt = 0;
@@ -40,17 +43,18 @@
             }
             ?>
         </tbody>
+        
         <tfoot>
             <tr>
                 <td colspan="9">
                     <ul class="pagination m-auto">
                         <?php
                         $prev_page = $page - 1;
-                        $next_page = $page + 1;                      
+                        $next_page = $page + 1;
 
                         //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                         if ($page > 1 && $number_page > 1) {
-                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=worker&page=$prev_page'>Prev</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=worker&page=$prev_page'><i class='bi bi-chevron-double-left'></i></a></li>";
                         }
 
                         // Lặp khoảng giữa
@@ -64,7 +68,7 @@
 
                         // nếu current_page < $total_page và total_page> 1 mới hiển thi next
                         if ($page < $number_page && $number_page > 1) {
-                            echo "<li class='page-item'><a class='page-link'href='index.php?controller=worker&page=$next_page'>Next</a></li>";
+                            echo "<li class='page-item'><a class='page-link'href='index.php?controller=worker&page=$next_page'><i class='bi bi-chevron-double-right'></i></a></li>";
                         } ?>
                     </ul>
                 </td>

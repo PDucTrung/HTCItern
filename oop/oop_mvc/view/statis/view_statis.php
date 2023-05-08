@@ -24,7 +24,7 @@
                     <td><?php echo $worker->getHourDo(); ?></td>
                     <td><?php echo $this->model->convert_to_vnd($worker->getBasicPay()); ?></td>
                     <td><?php echo $worker->getNoun(); ?></td>
-                    <td><?php echo $this->model->convert_to_vnd($worker->calculatePay()); ?></td>                   
+                    <td><?php echo $this->model->convert_to_vnd($worker->calculatePay()); ?></td>
                     <td>
                         <a class="btn btn-info" type="button" href="index.php?controller=detail_statis&month=<?php echo $month ?>&year=<?php echo $year ?>&id_worker=<?php echo $worker->getId(); ?>">Chi tiết</a>
                     </td>
@@ -41,7 +41,7 @@
                         $slug = "month=$month&year=$year&sort=$sort&filter=$filter&min=$start&max=$end";
                         //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                         if ($page > 1 && $number_page > 1) {
-                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=statis&page=$prev_page&$slug'>Prev</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=statis&page=$prev_page&$slug'><i class='bi bi-chevron-double-left'></i></a></li>";
                         }
 
                         // Lặp khoảng giữa
@@ -55,7 +55,7 @@
 
                         // nếu current_page < $total_page và total_page> 1 mới hiển thi next
                         if ($page < $number_page && $number_page > 1) {
-                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=statis&page=$next_page&$slug'>Next</a></li>";
+                            echo "<li class='page-item'><a class='page-link' href='index.php?controller=statis&page=$next_page&$slug'><i class='bi bi-chevron-double-right'></i></a></li>";
                         } ?>
                     </ul>
                 </td>

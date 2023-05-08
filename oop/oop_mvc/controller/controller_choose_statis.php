@@ -1,7 +1,6 @@
 <?php
 class controller_choose_statis extends controller
 {
-
     public function __construct()
     {
         parent::__construct();

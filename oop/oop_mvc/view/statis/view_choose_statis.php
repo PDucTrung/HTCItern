@@ -6,16 +6,19 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-md-3">Tháng</div>
+
                 <div class="col-md-9"><input class="form-control" min="1" max="12" type="number" name="month" value="" placeholder="VD: 7"></div>
             </div>
 
             <div class="row d-flex align-items-center">
                 <div class="col-md-3">Năm</div>
+
                 <div class="col-md-9"><input class="form-control" type="number" name="year" value="" placeholder="VD: 2022"></div>
             </div>
 
             <div class="row d-flex align-items-center">
                 <div class="col-md-3">Sắp xếp theo</div>
+
                 <div class="col-md-4">
                     <select name="sort" class="form-select">
                         <option value="1">Tên</option>
@@ -27,6 +30,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-3">Lọc theo</div>
+                
                 <div class="col-9">
                     <div class="range d-flex align-items-center gap-3">
                         <select name="filter" class="form-select">
