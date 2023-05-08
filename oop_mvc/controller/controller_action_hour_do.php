@@ -52,8 +52,13 @@ class controller_action_hour_do extends controller
                         $hour = $_POST["hour"];
                         $year = $_POST["year"];
                         $month = $_POST["month"];
-                        $this->model->execute("update tbl_work set year=$year,number_hour=$hour,month=$month where pk_id_work = $id_work");
-                        header("location:index.php?controller=work");
+                        if ($month == "" || $year == "" || $hour == "") {
+                            echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+                            echo "<script> window.location = 'index.php?controller=action_hour_do&act=edit&id_work=$id_work' </script>";
+                        } {
+                            $this->model->execute("update tbl_work set year=$year,number_hour=$hour,month=$month where pk_id_work = $id_work");
+                            header("location:index.php?controller=work");
+                        }
                     }
                     break;
                 }

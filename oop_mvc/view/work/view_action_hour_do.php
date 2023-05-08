@@ -8,11 +8,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3">Năm</div>
-                <div class="col-md-9"><input type="number" name="year" class="form-control" placeholder="2023"></div>
+                <div class="col-md-9"><input type="number" name="year" class="form-control" placeholder="2023" require></div>
             </div>
             <div class="row">
                 <div class="col-md-3">Số giờ làm việc</div>
-                <div class="col-md-9"><input type="number" name="hour" class="form-control" placeholder="120"></div>
+                <div class="col-md-9"><input type="number" name="hour" class="form-control" placeholder="120" require></div>
             </div>
             <div class="row">
                 <div class="col-md-3"></div>

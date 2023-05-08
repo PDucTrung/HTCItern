@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 07, 2023 lúc 10:12 AM
+-- Thời gian đã tạo: Th5 08, 2023 lúc 04:17 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.1.17
 
@@ -132,8 +132,8 @@ CREATE TABLE `tbl_type_worker` (
 --
 
 INSERT INTO `tbl_type_worker` (`pk_id_type_worker`, `name_type_worker`) VALUES
-(1, 'Dev'),
-(2, 'Manager Product');
+(1, 'Developer'),
+(2, 'Product Manager ');
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,8 @@ INSERT INTO `tbl_work` (`pk_id_work`, `fk_id_worker`, `number_hour`, `month`, `y
 (8, 3, 180, 7, 2022),
 (9, 4, 157, 7, 2022),
 (10, 4, 171, 8, 2022),
-(13, 5, 182, 7, 2022);
+(13, 5, 182, 7, 2022),
+(17, 9, 120, 7, 2023);
 
 -- --------------------------------------------------------
 
@@ -189,11 +190,12 @@ CREATE TABLE `tbl_worker` (
 --
 
 INSERT INTO `tbl_worker` (`pk_id_worker`, `fk_id_type_worker`, `fk_id_level`, `name_worker`, `age_worker`, `address`, `birth_day`, `number_year_exp`, `bassic_pay`) VALUES
-(1, 1, 4, 'Mr Trung', 20, 'england', '2000-07-11', 10, 40000),
+(1, 1, 3, 'Mr Trung', 20, 'england', '2000-07-11', 4, 40000),
 (2, 1, 2, 'Mr Thuan', 22, 'Italy', '2000-10-30', 3, 20000),
 (3, 1, 4, 'Jax', 19, 'VietNam', '2000-05-05', 6, 30000),
 (4, 2, 5, 'Master Yi', 21, 'Brazil', '2000-06-08', 2, 50000),
-(5, 2, 6, 'Sylas', 30, 'england', '2000-08-04', 6, 60000);
+(5, 2, 6, 'Sylas', 30, 'england', '2000-08-04', 6, 60000),
+(9, 1, 1, 'abc', 23, 'Hai duong', '2000-11-11', 2, 20000);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -279,13 +281,13 @@ ALTER TABLE `tbl_type_worker`
 -- AUTO_INCREMENT cho bảng `tbl_work`
 --
 ALTER TABLE `tbl_work`
-  MODIFY `pk_id_work` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `pk_id_work` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_worker`
 --
 ALTER TABLE `tbl_worker`
-  MODIFY `pk_id_worker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `pk_id_worker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

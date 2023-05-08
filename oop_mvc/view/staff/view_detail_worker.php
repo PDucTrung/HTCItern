@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">Ngày sinh</div>
-                <div class="col-md-9"><input type="text" value="<?php echo isset($worker) ? $worker->getBirthDay() : ""; ?>" name="birthday" class="form-control" disabled></div>
+                <div class="col-md-9"><input type="text" value="<?php echo isset($worker) ? date("d/m/Y", strtotime($worker->getBirthDay())) : ""; ?>" name="birthday" class="form-control" disabled></div>
             </div>
             <div class="row">
                 <div class="col-md-3">Loại nhân viên</div>

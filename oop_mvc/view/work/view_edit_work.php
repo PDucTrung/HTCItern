@@ -9,11 +9,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3">Năm</div>
-                <div class="col-md-9"><input type="number" name="year" value="<?php echo isset($work) ? $work->getYearDo() : ""; ?>" class="form-control"></div>
+                <div class="col-md-9"><input require type="number" name="year" value="<?php echo isset($work) ? $work->getYearDo() : ""; ?>" class="form-control"></div>
             </div>
             <div class="row">
                 <div class="col-md-3">Số giờ làm việc</div>
-                <div class="col-md-9"><input type="number" name="hour" value="<?php echo isset($work) ? $work->getHourDo() : ""; ?>" class="form-control"></div>
+                <div class="col-md-9"><input require type="number" name="hour" value="<?php echo isset($work) ? $work->getHourDo() : ""; ?>" class="form-control"></div>
             </div>
             <div class="row">
                 <div class="col-md-3"></div>

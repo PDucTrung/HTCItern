@@ -109,10 +109,13 @@ class controller_action_worker extends controller
                         $address = $_POST["address"];
                         $number_year_exp = $_POST["number_year_exp"];
                         $bassic_pay = $_POST["bassic_pay"];
+
+                        //                        
+                        $id_type_worker = $_POST["type_worker"];
                         $type_worker = $workers->fk_id_type_worker;
                         echo $type_worker;
 
-                        if ($type_worker == 1) {
+                        if ($id_type_worker == 1) {
                             if ($number_year_exp <= 2) {
                                 $level = 1;
                             } else if ($number_year_exp < 4) {
@@ -127,8 +130,14 @@ class controller_action_worker extends controller
                                 $level = 6;
                             }
                         }
-                        $this->model->execute("update tbl_worker set address='$address',number_year_exp=$number_year_exp,bassic_pay=$bassic_pay,fk_id_level=$level,name_worker='$name_worker',birth_day='$birthday',age_worker=$age_worker where pk_id_worker = $id_worker");
-                        header("location:index.php?controller=worker");
+
+                        if ($name_worker == "" || $birthday == "" || $number_year_exp == "" || $address == "" || $age_worker == "" || $type_worker == "" | $bassic_pay == "") {
+                            echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
+                            echo "<script> window.location = 'index.php?controller=action_worker&act=edit&id_worker=$id_worker' </script>";
+                        } else {
+                            $this->model->execute("update tbl_worker set address='$address',number_year_exp=$number_year_exp,bassic_pay=$bassic_pay,fk_id_level=$level,name_worker='$name_worker',birth_day='$birthday',age_worker=$age_worker, fk_id_type_worker=$id_type_worker where pk_id_worker = $id_worker");
+                            header("location:index.php?controller=worker");
+                        }
                     }
                     break;
                 }

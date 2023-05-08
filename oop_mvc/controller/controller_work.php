@@ -7,7 +7,7 @@ class controller_work extends controller
     {
         parent::__construct();
         // pagination
-        $record_per_page = 3;
+        $record_per_page = 4;
         $page = isset($_GET["page"]) ? $_GET["page"] : "1";
         $total_record = $this->model->count("select pk_id_work from tbl_work");
         $from = ($page - 1) * $record_per_page;
