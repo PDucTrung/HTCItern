@@ -46,7 +46,7 @@
                     <ul class="pagination m-auto">
                         <?php
                         $prev_page = $page - 1;
-                        $next_page = $page + 1;
+                        $next_page = $page + 1;                      
 
                         //  nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                         if ($page > 1 && $number_page > 1) {

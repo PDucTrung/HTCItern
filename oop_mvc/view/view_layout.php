@@ -26,7 +26,7 @@
                                     <a class="nav-link" href="index.php?controller=worker">Nhân Viên</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.php?controller=work">Thời gian làm việc</a>
+                                    <a class="nav-link" href="index.php?controller=choose_work">Thời gian làm việc</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="index.php?controller=choose_statis">Thống kê</a>

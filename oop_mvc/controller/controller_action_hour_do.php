@@ -37,35 +37,38 @@ class controller_action_hour_do extends controller
                 }
             case 'edit': {
                     $id_work = isset($_GET["id_work"]) ? $_GET["id_work"] : 0;
+                    $name = isset($_GET["name_worker"]) ? $_GET["name_worker"] : 0;
                     $time = $this->model->fetch_one("select * from tbl_work where pk_id_work=$id_work");
                     $work = new Person();
                     $work->setHourDo($time->number_hour);
                     $work->setyearDo($time->year);
                     $work->setMonthDo($time->month);
-                    $form_action = "index.php?controller=action_hour_do&id_work=$id_work&act=do_edit";
+                    $form_action = "index.php?controller=action_hour_do&id_work=$id_work&act=do_edit&name_worker=$name";
                     include_once "view/work/view_edit_work.php";
                     break;
                 }
             case 'do_edit': {
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $id_work = isset($_GET["id_work"]) ? $_GET["id_work"] : 0;
+                        $name = isset($_GET["name_worker"]) ? $_GET["name_worker"] : 0;
                         $hour = $_POST["hour"];
                         $year = $_POST["year"];
                         $month = $_POST["month"];
                         if ($month == "" || $year == "" || $hour == "") {
                             echo '<script> alert("bạn vui lòng nhập đầy đủ thông tin"); </script>';
-                            echo "<script> window.location = 'index.php?controller=action_hour_do&act=edit&id_work=$id_work' </script>";
+                            echo "<script> window.location = 'index.php?controller=action_hour_do&act=edit&id_work=$id_work&name_worker=$name' </script>";
                         } {
                             $this->model->execute("update tbl_work set year=$year,number_hour=$hour,month=$month where pk_id_work = $id_work");
-                            header("location:index.php?controller=work");
+                            header("location:index.php?controller=work&name_worker=$name");
                         }
                     }
                     break;
                 }
             case 'delete':
                 $id_work = isset($_GET["id_work"]) ? $_GET["id_work"] : 0;
+                $name = isset($_GET["name_worker"]) ? $_GET["name_worker"] : 0;
                 $this->model->execute("delete from tbl_work where pk_id_work = $id_work");
-                header("location:index.php?controller=work");
+                header("location:index.php?controller=work&name_worker=$name");
                 break;
         }
     }
