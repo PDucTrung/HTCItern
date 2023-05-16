@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mycustomsection>
+            <!-- default sidebar -->
+            <mycustomsidebargroup>
+                <mycustomsidebarcontent>1</mycustomsidebarcontent>
+            </mycustomsidebargroup>
+
+            <!-- default title -->
+            <mycustomtitlegroup>
+                <mycustomtitleenable>1</mycustomtitleenable>
+                <mycustomtitle>My Custom Title Default Value</mycustomtitle>
+            </mycustomtitlegroup>
+
+            <!-- default max quanlity -->
+            <mycustomquantitygroup>
+                <mycustomquantitynumber>7</mycustomquantitynumber>
+            </mycustomquantitygroup>
+        </mycustomsection>
+    </default>
+</config>
