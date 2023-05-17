@@ -9,12 +9,6 @@ class Display extends \Magento\Framework\View\Element\Template
         return "$text";
     }
 
-    // method sidebar
-    public function getEnableSidebarContent()
-    {
-        return $this->_scopeConfig->getValue('mycustomsection/mycustomsidebargroup/mycustomsidebarcontent');
-    }
-
     // method title
     public function getCustomTitle()
     {

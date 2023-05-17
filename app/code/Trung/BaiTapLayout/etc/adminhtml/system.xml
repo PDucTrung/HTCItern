@@ -25,8 +25,8 @@
         <group id="mycustomtitlegroup" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Config Title</label>
              <field id="mycustomtitleenable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>Title Enable</label>
-                <comment>Enable or disable the text title</comment>
+                <label>Title Show/Hide</label>
+                <comment>Show or Hide the text title</comment>
                 <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
             </field>
             <field id="mycustomtitle" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
