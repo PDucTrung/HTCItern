@@ -31,6 +31,8 @@
             </field>
             <field id="mycustomtitle" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Custom Title</label>
+                <validate>validate-number</validate>
+                <frontend_class>validate-number</frontend_class>
                 <comment>This is a custom title</comment>
             </field>
         </group>
