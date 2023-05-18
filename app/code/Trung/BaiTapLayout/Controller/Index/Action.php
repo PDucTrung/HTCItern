@@ -2,26 +2,26 @@
 
 namespace Trung\BaiTapLayout\Controller\Index;
 
-use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\RequestInterface;
+use Trung\BaiTapLayout\Model\TrungFactory;
 
 class Action extends \Magento\Framework\App\Action\Action
 {
     protected $_pageFactory;
-    protected $resourceConnection;
     protected $redirectFactory;
     protected $request;
+    protected $trungFactory;
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        ResourceConnection $resourceConnection,
         RedirectFactory $redirectFactory,
-        RequestInterface $request
+        RequestInterface $request,
+        TrungFactory $trungFactory
     ) {
         $this->_pageFactory = $pageFactory;
-        $this->resourceConnection = $resourceConnection;
+        $this->trungFactory = $trungFactory;
         $this->redirectFactory = $redirectFactory;
         $this->request = $request;
         return parent::__construct($context);
@@ -30,11 +30,9 @@ class Action extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $act = isset($_GET["act"]) ? $_GET["act"] : "";
-        $id = isset($_GET["id"]) ? $_GET["id"] : "";
 
-        // table
-        $connection = $this->resourceConnection->getConnection();
-        $tableName = $connection->getTableName('my_module_my_table');
+        // model
+        $myModel = $this->trungFactory->create();
 
         // redirect
         $resultRedirect = $this->redirectFactory->create();
@@ -42,19 +40,18 @@ class Action extends \Magento\Framework\App\Action\Action
         // action
         switch ($act) {
             case "add": {
-                    $data = [
-                        'field1' => $this->request->getParam('field1'),
-                        'field2' => $this->request->getParam('field2')
-                    ];
+                    $myModel->setData('field1', $this->getRequest()->getParam('field1'));
+                    $myModel->setData('field2', $this->getRequest()->getParam('field2'));
 
-                    // method insert
-                    $connection->insert($tableName, $data);
+                    $myModel->save();
 
                     // quay ve trang chính 
                     $resultRedirect->setPath('http://trung.magento2.com/baitaplayout/index/table');
                     return $resultRedirect;
                 }
             case "edit": {
+                    $id = isset($_GET["id"]) ? $_GET["id"] : "";
+
                     // quay ve trang chính 
                     $resultRedirect->setPath("http://trung.magento2.com/baitaplayout/index/formedit?id=$id");
 
@@ -62,15 +59,15 @@ class Action extends \Magento\Framework\App\Action\Action
                 }
 
             case "do_edit": {
-                    $data = [
-                        'field1' => $this->request->getParam('field1'),
-                        'field2' => $this->request->getParam('field2')
-                    ];
-
-                    $id_post = $this->request->getParam('id');
-
                     // method update
-                    $connection->update($tableName, $data, ['id = ?' => $id_post]);
+                    $id = $this->getRequest()->getParam('idedit');
+
+                    $myModel->load("$id");
+
+                    $myModel->setData('field1', $this->getRequest()->getParam('field1'));
+                    $myModel->setData('field2', $this->getRequest()->getParam('field2'));
+
+                    $myModel->save();
 
                     // quay ve trang chính 
                     $resultRedirect->setPath('http://trung.magento2.com/baitaplayout/index/table');
@@ -78,8 +75,11 @@ class Action extends \Magento\Framework\App\Action\Action
                     return $resultRedirect;
                 }
             case "delete": {
+                    $id = isset($_GET["id"]) ? $_GET["id"] : "";
+
                     // method delete
-                    $connection->delete($tableName, ['id = ?' => $id]);
+                    $myModel->load("$id");
+                    $myModel->delete();
 
                     // quay ve trang chính 
                     $resultRedirect->setPath('http://trung.magento2.com/baitaplayout/index/table');

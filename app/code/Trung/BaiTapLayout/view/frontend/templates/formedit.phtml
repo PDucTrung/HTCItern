@@ -5,7 +5,7 @@
         $id = isset($_GET["id"]) ? $_GET["id"] : "";
         foreach ($block->getCollectionById($id) as $key => $item) {
         ?>
-            <input type="text" name="id" placeholder="field1" disabled value="<?php echo $item->getId() ?>" />
+            <input type="text" name="idedit" placeholder="id" value="<?php echo $item->getId(); ?>" />
             <input type="text" name="field1" placeholder="field1" value="<?php echo $item->getData('field1') ?>"/>
             <input type="text" name="field2" placeholder="field2" value="<?php echo $item->getData('field2') ?>"/>
         <?php } ?>
