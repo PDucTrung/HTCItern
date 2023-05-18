@@ -2,8 +2,20 @@
 
 namespace Trung\BaiTapLayout\Block;
 
+use Trung\BaiTapLayout\Model\TrungFactory;
+
 class Display extends \Magento\Framework\View\Element\Template
 {
+    protected $TrungFactory;
+
+    public function __construct(
+        \Magento\Framework\View\Element\Template\Context $context,
+        TrungFactory $trungFactory
+    ) {
+        $this->TrungFactory = $trungFactory;
+        parent::__construct($context);
+    }
+
     public function getText($text)
     {
         return "$text";

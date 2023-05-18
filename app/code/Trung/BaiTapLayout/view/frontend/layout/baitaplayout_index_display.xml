@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <referenceContainer name="div.sidebar.main">
-            <block class="Trung\BaiTapLayout\Block\Display" name="text_left" template="Trung_BaiTapLayout::sidebar.phtml" ifconfig="mycustomsection/mycustomsidebargroup/mycustomsidebarcontent" />
-            <referenceContainer name="div.sidebar.additional" remove="true"/>
+        <block class="Trung\BaiTapLayout\Block\Display" name="text_left" template="Trung_BaiTapLayout::sidebar.phtml" ifconfig="mycustomsection/mycustomsidebargroup/mycustomsidebarcontent" cacheable="false"/>
+        <referenceContainer name="div.sidebar.additional" remove="true"/>
     </referenceContainer>
     <referenceContainer name="content">
-            <block class="Trung\BaiTapLayout\Block\Display" name="title" template="Trung_BaiTapLayout::title.phtml" />
-            <container name="div.container" htmlTag="div" htmlClass="container_main" htmlId="container">
-                <block class="Trung\BaiTapLayout\Block\Display" name="text_center" template="Trung_BaiTapLayout::list.phtml" />
-            </container>
+        <block class="Trung\BaiTapLayout\Block\Display" name="title" template="Trung_BaiTapLayout::title.phtml" />
+        <container name="div.container" htmlTag="div" htmlClass="container_main" htmlId="container">
+            <block class="Trung\BaiTapLayout\Block\Display" name="text_center" template="Trung_BaiTapLayout::list.phtml" />
+        </container>
     </referenceContainer>
 </page>

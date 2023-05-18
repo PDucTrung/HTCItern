@@ -6,15 +6,13 @@
             <?php
             $list = ["How do i find my order", "How does buyin work", "How many fees are there", "How do i sign out", "How do i message", "How do i refund items"];
             $maxLength = $block->getCustomQuantity();
-            $quantity = count($list);
+            $count = 0;
 
-            if ($maxLength < count($list)) {
-                $quantity = $maxLength;
-            } elseif ($maxLength < 0) $quantity = 0;
-
-            for ($i = 0; $i < $quantity; $i++) {
+            foreach ($list as $item) {
+                $count++;
+                if ($count > $maxLength) break;
             ?>
-                <li><?php echo $list[$i] ?></li>
+                <li><?php echo $item ?></li>
             <?php } ?>
         </ul>
     </div>
