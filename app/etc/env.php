@@ -80,6 +80,6 @@ return [
         'localhost'
     ],
     'install' => [
-        'date' => 'Wed, 10 May 2023 07:31:59 +0000'
+        'date' => 'Mon, 22 May 2023 09:34:21 +0000'
     ]
 ];

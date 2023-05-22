@@ -3,7 +3,7 @@
     <body>
         <!--  -->
         <referenceContainer name="content">
-            <uiComponent name="trung_helloworld_post_listing"/>
+            <uiComponent name="trung_baitaplayout_table_listing"/>
         </referenceContainer>
     </body>
 </page>

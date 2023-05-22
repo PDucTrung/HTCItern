@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Trung_BaiTapLayout::baitaplayout" title="Module BaiTapLayout" module="Trung_BaiTapLayout" sortOrder="51" resource="Trung_BaiTapLayout::baitaplayout"/>
+        <add id="Trung_BaiTapLayout::submenu" title="My table" module="Trung_BaiTapLayout" sortOrder="10" action="trung_baitaplayout/table/index" parent="Trung_BaiTapLayout::baitaplayout" resource="Trung_BaiTapLayout::submenu" />
+    </menu>
+</config>

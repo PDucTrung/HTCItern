@@ -1,6 +1,6 @@
 <?php
 
-namespace Trung\HelloWorld\Controller\Adminhtml\Post;
+namespace Trung\BaiTapLayout\Controller\Adminhtml\Table;
 
 class Index extends \Magento\Backend\App\Action
 {
@@ -17,7 +17,7 @@ class Index extends \Magento\Backend\App\Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Trung Helloworld Posts')));
+        $resultPage->getConfig()->getTitle()->prepend((__('My moudle my table')));
 
         return $resultPage;
     }
