@@ -1,0 +1,73 @@
+<div class="form-add">
+    <h3>ADD Item table</h3>
+    <form method="post" action="action?act=add">
+        <input type="text" name="field1" placeholder="field1" />
+        <input type="text" name="field2" placeholder="field2" />
+        <button type="submit">ADD</button>
+    </form>
+</div>
+<?php if (count($block->getTrungCollection()) == 0) {
+    echo "<h2 class='text-center'>khong co du lieu</h2>";
+} else { ?>
+    <table>
+        <h2 class="text-center">Table</h2>
+        <tr>
+            <th class="id">Id</th>
+            <th class="field2">Field 1</th>
+            <th class="field2">Field 2</th>
+            <th class="upadate-delete-row"></th>
+        </tr>
+        <?php
+        foreach ($block->getTrungCollection() as $key => $item) {
+        ?>
+            <tr>
+                <td><?php echo $item->getId() ?></td>
+                <td><?php echo $item->getData('field1') ?></td>
+                <td><?php echo $item->getData('field2') ?></td>
+                <td>
+                    <a href="action?act=edit&id=<?php echo $item->getId(); ?>">EDIT</a>
+                    <br>
+                    <a href="action?act=delete&id=<?php echo $item->getId(); ?>">DELETE</a>
+                </td>
+            </tr>
+    <?php  }
+    }
+    ?>
+    </table>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .post-id {
+            width: 2%
+        }
+
+        .post-name {
+            width: 30%
+        }
+
+        .form-add {
+            border: 1px solid gray;
+            padding: 20px;
+        }
+
+        .form-add form {
+            display: flex;
+            gap: 16px;
+        }
+    </style>

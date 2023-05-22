@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Trung_HelloWorld::custom_menu" title="Custom Menu" module="Trung_HelloWorld" sortOrder="51" parent="Magento_Backend::content" resource="Trung_HelloWorld::custom_menu" />
+        <add id="Trung_HelloWorld::submenu" title="Sub menu" module="Trung_HelloWorld" sortOrder="10" action="trung_helloworld/post/index" parent="Trung_HelloWorld::custom_menu" resource="Trung_HelloWorld::submenu" />
+    </menu>
+</config>
