@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KO JS</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="section section-ko-js">
+      <!-- select user -->
+      <div class="section-content">
+        <div class="select-box">
+          <h3>Select Employee:</h3>
+          <select
+            data-bind="options: employees,
+                                optionsText: 'name',
+                                value: selectedEmployee,
+                                event: { change: displayInfo }"
+          ></select>
+        </div>
+
+        <!-- show info -->
+        <div class="selected-content">
+          <h3>Selected Employee:</h3>
+          <p
+            data-bind="text: selectedEmployee() ? selectedEmployee().info : ''"
+          ></p>
+        </div>
+      </div>
+      <br />
+
+      <!-- btn show form add -->
+      <button data-bind="click: showForm">Add User</button>
+      <br />
+
+      <div class="form-add" data-bind="visible: showFormFlag">
+        <h3>Add User Form:</h3>
+
+        <!-- form add -->
+        <form data-bind="submit: addUser">
+          <div class="form-control">
+            <label for="name">Name:</label>
+            <input type="text" id="name" data-bind="value: newUser().name" />
+          </div>
+
+          <div class="form-control">
+            <label for="age">Age:</label>
+            <input type="number" id="age" data-bind="value: newUser().age" />
+          </div>
+
+          <div class="form-control">
+            <label for="job">Job:</label>
+            <input type="text" id="job" data-bind="value: newUser().job" />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ko js cdn -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-debug.js"
+      integrity="sha512-CkCoHcNjfbBs/EQkITBd8Jmqsnv4u46yBemFrZ/ISNiKbTQd35Ng7tFHpYSm+AI1fyf1McVJamWHgMrWXKMaKw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!--  -->
+    <script>
+      function Employee(name, age, job) {
+        // ten
+        this.name = name;
+
+        // tuoi
+        this.age = age;
+
+        // nghe nghiep
+        this.job = job;
+
+        // show thong tin
+        this.info = this.name + ", " + this.age + " years old, " + this.job;
+      }
+
+      function AppViewModel() {
+        this.employees = ko.observableArray([
+          new Employee("Hieu Nguyen", 28, "Developer"),
+          new Employee("Cuong Tran", 27, "Developer"),
+          new Employee("Thong Phung", 30, "Developer"),
+        ]);
+
+        // observable
+        this.selectedEmployee = ko.observable();
+        this.showFormFlag = ko.observable(false);
+        this.newUser = ko.observable({
+          name: "",
+          age: "",
+          job: "",
+        });
+
+        // selected
+        this.displayInfo = function () {
+          var selected = this.selectedEmployee();
+          if (selected) {
+            alert(selected.info);
+          }
+        };
+
+        // show form
+        this.showForm = function () {
+          this.showFormFlag(true);
+        };
+
+        // add user func
+        this.addUser = function () {
+          var newUser = new Employee(
+            this.newUser().name,
+            this.newUser().age,
+            this.newUser().job
+          );
+
+          //  push obj
+          this.employees.push(newUser);
+
+          // selected new user
+          this.selectedEmployee(newUser);
+
+          //   hide form add
+          this.showFormFlag(false);
+
+          this.newUser({
+            name: "",
+            age: "",
+            job: "",
+          });
+        };
+      }
+
+      ko.applyBindings(new AppViewModel());
+    </script>
+  </body>
+</html>

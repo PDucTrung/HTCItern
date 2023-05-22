@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.section-ko-js {
+  width: 1000px;
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section-content {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.form-add {
+  border: 1px solid gray;
+  width: 250px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  padding: 20px;
+}
+
+form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+}
+
+.form-control {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+button {
+  width: 80px;
+  margin: 0 auto;
+}
