@@ -10,7 +10,7 @@ function Employee(name, age, job) {
     
     self.employees = ko.observableArray([]);
   
-    // Lấy danh sách nhân viên từ CSDL MySQL thông qua PHP
+    // Lấy danh sách nhân viên từ CSDL MySQL
     $.ajax({
       url: "get_employees.php",
       type: "GET",
@@ -53,7 +53,7 @@ function Employee(name, age, job) {
         var employee = new Employee(name, age, job);
         self.employees.push(employee);
   
-        // Gửi dữ liệu tới server để lưu vào CSDL MySQL
+        // Gửi dữ liệu tới server để lưu vào CSDL
         $.ajax({
           url: "add_employee.php",
           type: "POST",
@@ -63,7 +63,7 @@ function Employee(name, age, job) {
             job: job
           },
           success: function(response) {
-            // Xử lý phản hồi từ server nếu cần
+            // Xử lý phản hồi từ server
           }
         });
   
@@ -87,7 +87,7 @@ function Employee(name, age, job) {
             name: employee.name
           },
           success: function(response) {
-            // Xử lý phản hồi từ server nếu cần
+            // Xử lý phản hồi từ server
           }
         });
       }
