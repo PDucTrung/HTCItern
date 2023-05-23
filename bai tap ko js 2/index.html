@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <h2>Employee Management</h2>
+
+      <select
+        data-bind="options: employees,
+                           optionsText: 'name',
+                           value: selectedEmployee,
+                           event: { change: showEmployeeInfo }"
+      ></select>
+
+      <p data-bind="text: selectedEmployeeInfo"></p>
+
+      <button data-bind="click: showAddUserForm">Add User</button>
+      <button data-bind="click: deleteUser">Delete</button>
+
+      <div data-bind="visible: showForm">
+        <h3>Add User</h3>
+        <br />
+        <form data-bind="submit: addUser">
+          <div>
+            <label>Name:</label>
+            <input type="text" data-bind="value: newName" required />
+          </div>
+          <div>
+            <label>Age:</label>
+            <input type="text" data-bind="value: newAge" required />
+          </div>
+          <div>
+            <label>Job:</label>
+            <input type="text" data-bind="value: newJob" required />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
+      <h2>Employee list</h2>
+      <ul data-bind="foreach: employees">
+        <li>
+          <span data-bind="text: name"></span>,
+          <span data-bind="text: age"></span> years old,
+          <span data-bind="text: job"></span>
+        </li>
+      </ul>
+    </section>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+      integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"
+      integrity="sha512-xXZWdp+Qu5oSyYvkV6tcCsw+LhXwBZAh8qhD6Ml44PhxjroiMjrLhP9wvvBnhHzkc9A9kLBWBZ6HGaqqtxNd5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="knockout.js"></script>
+  </body>
+</html>
