@@ -1,0 +1,169 @@
+<style>
+    .my-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .my-table th,
+    .my-table td {
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .my-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .my-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .my-table tbody tr:hover {
+        background-color: #eaeaea;
+    }
+
+    .form-add {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        border: 1px solid gray;
+    }
+</style>
+
+<div id="employees">
+    <h1>Employees</h1>
+    <button data-bind="click: showAddForm">Add User</button>
+    <br>
+    <div data-bind="if: showForm">
+        <h3>Add User:</h3>
+        <form data-bind="submit: addUser" class="form-add">
+            <label for="name">Name:</label>
+            <input type="text" id="name" data-bind="value: newEmployee.name" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" data-bind="value: newEmployee.age" required>
+            <label for="job">Job:</label>
+            <input type="text" id="job" data-bind="value: newEmployee.job" required>
+            <div>
+                <button type="submit">Submit</button>
+                <button data-bind="click: hideAddForm" type="button">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <br><br>
+
+    <div>
+        <select data-bind="options: employees, optionsText: 'name', value: selectedEmployee"></select>
+    </div>
+    <br>
+
+    <table class="my-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Job</th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach: employees">
+            <tr data-bind="click: $parent.selectedEmployee.bind($data)">
+                <td data-bind="text: name"></td>
+                <td data-bind="text: age"></td>
+                <td data-bind="text: job"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+
+    <div data-bind="if: selectedEmployee">
+        <h3>Selected Employee:</h3>
+        <p data-bind="text: 'Name: ' + selectedEmployee().name"></p>
+        <p data-bind="text: 'Age: ' + selectedEmployee().age"></p>
+        <p data-bind="text: 'Job: ' + selectedEmployee().job"></p>
+        <br>
+        <button data-bind="click: deleteUser">Delete</button>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'ko'], function($, ko) {
+        var employeesData = <?= $block->getEmployeesJson() ?>;
+
+        var viewModel = {
+            employees: ko.observableArray(employeesData),
+            selectedEmployee: ko.observable(),
+            newEmployee: {
+                name: ko.observable(''),
+                age: ko.observable(''),
+                job: ko.observable('')
+            },
+            showForm: ko.observable(false),
+
+            // loadEmployees: function() {
+            //     $.ajax({
+            //         url: '/nhanvien/index/index',
+            //         method: 'GET',
+            //         dataType: 'json',
+            //         success: function(response) {
+            //             viewModel.employees(employeesData);
+            //         }
+            //     });
+            // },
+
+            showAddForm: function() {
+                viewModel.showForm(true);
+            },
+
+            hideAddForm: function() {
+                viewModel.showForm(false);
+            },
+
+            addUser: function() {
+                var employee = {
+                    name: viewModel.newEmployee.name(),
+                    age: viewModel.newEmployee.age(),
+                    job: viewModel.newEmployee.job()
+                };
+
+                $.ajax({
+                    url: '/nhanvien/index/add',
+                    method: 'POST',
+                    data: employee,
+                    dataType: 'json',
+                    success: function(response) {
+                        viewModel.employees.push(response);
+                        viewModel.newEmployee.name('');
+                        viewModel.newEmployee.age('');
+                        viewModel.newEmployee.job('');
+                    }
+                });
+            },
+
+            deleteUser: function() {
+                if (viewModel.selectedEmployee()) {
+                    var id = viewModel.selectedEmployee().entity_id;
+                    $.ajax({
+                        url: '/nhanvien/index/delete',
+                        method: 'POST',
+                        data: {
+                            id: id
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            viewModel.employees.remove(viewModel.selectedEmployee());
+                            viewModel.selectedEmployee(null);
+                        }
+                    });
+                }
+            }
+        };
+
+        ko.applyBindings(viewModel, document.getElementById('employees'));
+
+        // // Load employees initially
+        // viewModel.loadEmployees();
+    });
+</script>
