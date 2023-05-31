@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="blacklist_email_login" type="Trung\BlackMail\Plugin\Customer\Account\LoginPostPlugin" sortOrder="1" disabled="true"/>
+    </type>
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="blacklist_email_register" type="Trung\BlackMail\Plugin\Customer\Account\CreatePostPlugin" sortOrder="1" disabled="true"/>
+    </type>
+</config>
