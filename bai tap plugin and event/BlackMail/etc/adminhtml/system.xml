@@ -6,7 +6,7 @@
             <tab>general</tab>
             <resource>Trung_BlackMail::blackmail_config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>General Configuration</label>
+                <label>Black list mail Configuration</label>
                 <field id="blacklist_emails" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Blacklist Emails</label>
                     <comment>Enter blacklisted emails, separated by commas.</comment>

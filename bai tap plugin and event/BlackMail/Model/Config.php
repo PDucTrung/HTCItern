@@ -15,6 +15,7 @@ class Config
         $this->scopeConfig = $scopeConfig;
     }
 
+    // method get value list black mail
     public function getBlacklistEmailsConfig()
     {
         return $this->scopeConfig->getValue(self::XML_PATH_BLACKLIST_EMAILS, ScopeInterface::SCOPE_STORE);

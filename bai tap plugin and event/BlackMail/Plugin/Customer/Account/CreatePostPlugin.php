@@ -34,7 +34,10 @@ class CreatePostPlugin
         // check
         $email = $subject->getRequest()->getParam('email');
         if (in_array($email, $emails)) {
+            // msg
             $this->messageManager->addErrorMessage(__('Your email is blacklisted.'));
+
+            // chuyển hướng người dùng đến trang customer/account/create
             $resultRedirect = $this->redirectFactory->create();
             $resultRedirect->setPath('customer/account/create');
             return $resultRedirect;
@@ -47,7 +50,11 @@ class CreatePostPlugin
     protected function getEmailsFromBlackListConfig()
     {
         $emailsString = trim($this->config->getBlacklistEmailsConfig());
+
+        // convert string to arr
         $emails = explode(',', $emailsString);
+
+        // loại bỏ khoảng trắng đầu cuối
         $emails = array_map('trim', $emails);
         return $emails;
     }
