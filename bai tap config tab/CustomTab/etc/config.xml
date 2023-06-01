@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <trung_custom_tab_section>
+            <general>
+                <name>Custom tab</name>
+                <content>Content</content>
+                <status>1</status>
+            </general>
+        </trung_custom_tab_section>
+    </default>
+</config>

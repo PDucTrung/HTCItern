@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tabs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/tabs.xsd">
+    <tab id="trung_custom_tab" translate="label" sortOrder="100">
+        <label>Custom Tab</label>
+    </tab>
+</tabs>
