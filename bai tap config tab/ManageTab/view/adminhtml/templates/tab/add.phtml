@@ -1,0 +1,31 @@
+<div>
+    <form class="bt-tab-form" action="<?php echo $block->getUrl('managetab/tab/save', ['_current' => true]); ?>" method="post">
+        <input type="hidden" name="form_key" value="<?php echo $block->getFormKey(); ?>">
+        <div>
+            <label for="name"><?php echo __('Name'); ?></label>
+            <input type="text" id="name" name="name" value="" required>
+        </div>
+        <div>
+            <label for="content"><?php echo __('Content'); ?></label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+        <div>
+            <label for="status"><?php echo __('Status'); ?></label>
+            <select id="status" name="status" required>
+                <option value="1"><?php echo __('Enabled'); ?></option>
+                <option value="0"><?php echo __('Disabled'); ?></option>
+            </select>
+        </div>
+        <div>
+            <button type="submit"><?php echo __('Save'); ?></button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .bt-tab-form{
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+</style>

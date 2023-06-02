@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Trung_ManageTab::tab_menu" title="Manage Tabs" module="Trung_ManageTab" sortOrder="100" resource="Trung_ManageTab::tab_menu"/>
+        <add id="Trung_ManageTab::tab_menu_items" title="Tab List" module="Trung_ManageTab" sortOrder="10" action="managetab/tab" resource="Trung_ManageTab::tab_menu_items"/>
+    </menu>
+</config>

@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <a href="<?php echo $block->getUrl('managetab/tab/add'); ?>"><?php echo __('Add New Tab'); ?></a>
+    </div>
+    <br>
+    <table class="data-grid">
+        <thead>
+            <tr>
+                <th><?php echo __('ID'); ?></th>
+                <th><?php echo __('Name'); ?></th>
+                <th><?php echo __('Content'); ?></th>
+                <th><?php echo __('Status'); ?></th>
+                <th><?php echo __('Actions'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($block->getTabs() as $tab): ?>
+                <tr>
+                    <td><?php echo $tab->getId(); ?></td>
+                    <td><?php echo $tab->getName(); ?></td>
+                    <td><?php echo $tab->getContent(); ?></td>
+                    <td><?php echo $tab->getStatus(); ?></td>
+                    <td>
+                        <a href="<?php echo $block->getUrl('managetab/tab/edit', ['tab_id' => $tab->getId()]); ?>"><?php echo __('Edit'); ?></a>
+                        |
+                        <a href="<?php echo $block->getUrl('managetab/tab/delete', ['tab_id' => $tab->getId()]); ?>" onclick="return confirm('<?php echo __('Are you sure you want to delete this tab?'); ?>')"><?php echo __('Delete'); ?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    th,td{
+        text-align: center !important;
+    }
+</style>

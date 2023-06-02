@@ -1,0 +1,20 @@
+<?php
+
+use Laminas\Json\Json;
+
+if (!empty($block->getJsLayout())) {
+    $jsLayout = Json::decode($block->getJsLayout(), Json::TYPE_ARRAY);
+    
+    foreach ($jsLayout as $layout) {
+        if (isset($layout['type']) && 'template' === $layout['type'] && isset($layout['data'])) {
+            echo $this->getLayout()->createBlock($layout['data']['type'])
+                ->setDisplayType($layout['data']['name'])
+                ->setTemplate($layout['data']['template'])->toHtml();
+        } else {
+            ?>
+            <h1><?= $layout['title']; ?></h1>
+            <div><?= $layout['description']; ?></div>
+            <?php
+        }
+    }
+}

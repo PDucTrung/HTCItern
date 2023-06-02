@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Trung_ManageTab::tab_menu" title="Manage Tabs" sortOrder="100" >
+                    <resource id="Trung_ManageTab::tab_menu_items" title="Tab List" sortOrder="10" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
