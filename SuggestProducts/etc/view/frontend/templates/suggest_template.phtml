@@ -1,0 +1,54 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$cart = $objectManager->get('\Magento\Checkout\Model\Cart');
+$items = $cart->getQuote()->getAllVisibleItems();
+?>
+
+<div style="display: none" id="popup-mpdal">
+    <div id="minicart-content-wrapper">
+        <?php echo $block->getProductsData(2050) ?>
+        <?php if (count($items) > 0) : ?>
+            <div class="cartProductList" id="cartProductList">
+                <?php foreach ($cartData as $item) : ?>
+                    <?php $product = $item->getProduct();
+                    if ($block->getProductsData($item->getProductId())) {
+                        $suggestProductId = $block->getProductsData($item->getProductId());
+                    } else  $suggestProductId = '';
+                    if ($suggestProductId != '') {
+                        $suggestProduct = $om->get('Magento\Catalog\Model\Product')->load($suggestProductId);
+                    }
+                    ?>
+                    <p>
+                        <span class="ids"><?php echo $suggestProduct->getName(); ?></span>
+                    </p>
+                <?php endforeach; ?>
+            </div>
+        <?php else : ?>
+            <div class="emptyList">No products in your Cart.</div>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true
+            };
+            $('#popup-mpdal').show();
+            var popup = modal(options, $('#popup-mpdal'));
+            $("#popup-mpdal").modal("openModal");
+        }
+
+    );
+</script>
