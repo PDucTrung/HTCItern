@@ -1,0 +1,80 @@
+<?php
+$items = $block->getCartItems();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+?>
+
+<button id="showModalButton" style="margin:auto">Checkout</button>
+
+<div id="customModal" style="display: none;">
+    <div id="minicart-content-wrapper">
+        <?php if (count($items) > 0) : ?>
+            <h3>Bạn có muốn thêm sản sản phẩm sau vào giỏ hàng ?</h3>
+            <br>
+            <div class="cartProductList" id="cartProductList">
+                <?php foreach ($items as $item) : ?>
+                    <?php
+                    if ($block->getProductsData($item->getProductId())) {
+                        $suggestProductId = $block->getProductsData($item->getProductId());
+                    } else  $suggestProductId = '';
+                    if ($suggestProductId != '') {
+                        $suggestProduct = $block->getProductById($suggestProductId);
+                        $addToCartUrl =  $listBlock->getAddToCartUrl($suggestProduct);
+                    }
+                    ?>
+
+                    <div>
+                        <strong class="ids"><?php echo $suggestProduct->getName(); ?></strong>
+                        <br>
+                        <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
+                            <?php echo $block->getBlockHtml('formkey') ?>
+                            <div class="btn">
+                                <button type="submit" title="Add to Cart" class="action tocart primary">
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else : ?>
+            <div class="emptyList">No products in your Cart.</div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            modalClass: 'custom-modal-class',
+            buttons: [{
+                text: $.mage.__('Close'),
+                class: 'mymodal-close',
+                click: function() {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#customModal'));
+
+        $('#showModalButton').click(function() {
+            $('#customModal').modal('openModal');
+        });
+
+        //
+        $(document).ready(function() {
+            $('.tocart').click(function() {
+                setTimeout(function() {
+                    window.location.href = '<?php echo $block->escapeUrl($block->getCheckoutUrl()) ?>';
+                }, 1000); 
+            });
+        });
+    });
+</script>
