@@ -8,6 +8,7 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Checkout\Model\Cart;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Data\Form\FormKey;
+use Magento\Catalog\Block\Product\ListProduct;
 
 class SuggestProductsBlock extends Template
 {
@@ -17,6 +18,7 @@ class SuggestProductsBlock extends Template
     // 
     protected $formKey;
     protected $urlBuilder;
+    protected $listProduct;
 
     public function __construct(
         Context $context,
@@ -24,6 +26,7 @@ class SuggestProductsBlock extends Template
         Cart $cart,
         Product $product,
         FormKey $formKey,
+        ListProduct $listProduct,
         \Magento\Framework\UrlInterface $urlBuilder,
         array $data = []
     ) {
@@ -32,6 +35,7 @@ class SuggestProductsBlock extends Template
         $this->product = $product;
         $this->urlBuilder = $urlBuilder;
         $this->formKey = $formKey;
+        $this->listProduct = $listProduct;
         parent::__construct($context, $data);
     }
 
@@ -48,6 +52,10 @@ class SuggestProductsBlock extends Template
     public function getProductById($id)
     {
         return $this->product->load($id);
+    }
+
+    public function AddToCart($product){
+        return $this->listProduct->getAddToCartUrl($product);
     }
 
     public function getProductsData($id)

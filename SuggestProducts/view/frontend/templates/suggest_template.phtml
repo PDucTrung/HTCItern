@@ -1,17 +1,24 @@
 <?php
 $items = $block->getCartItems();
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
 ?>
 
-<button id="showModalButton" style="margin:auto">Checkout</button>
+<button id="showModalButton" style="display: block;
+    width: 100%; background: #1979c3;
+    border: 1px solid #1979c3;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600; line-height: 2.2rem;
+    padding: 14px 17px;
+    font-size: 1.8rem;" class="action primary">Proceed to Checkout</button>
 
 <div id="customModal" style="display: none;">
     <div id="minicart-content-wrapper">
         <?php if (count($items) > 0) : ?>
-            <h3>Bạn có muốn thêm sản sản phẩm sau vào giỏ hàng ?</h3>
+            <h3>Do you want to add the following products to your cart?</h3>
             <br>
-            <div class="cartProductList" id="cartProductList">
+            <div class="cartProductList" id="cartProductList" style="display: flex; justify-content:space-around; flex-wrap: wrap;">
                 <?php foreach ($items as $item) : ?>
                     <?php
                     if ($block->getProductsData($item->getProductId())) {
@@ -19,14 +26,16 @@ $listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
                     } else  $suggestProductId = '';
                     if ($suggestProductId != '') {
                         $suggestProduct = $block->getProductById($suggestProductId);
-                        $addToCartUrl =  $listBlock->getAddToCartUrl($suggestProduct);
+                        $addToCartUrl =  $block->AddToCart($suggestProduct);
+                        $image = $suggestProduct->getSmallImage() == '' ? '/pub/static/frontend/Clear/usb2u/en_GB/images/default-category-image_1.png' : '/pub/media/catalog/product' . $suggestProduct->getSmallImage();
                     }
                     ?>
 
-                    <div>
-                        <strong class="ids"><?php echo $suggestProduct->getName(); ?></strong>
-                        <br>
-                        <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
+                    <div class="product-box" style="display: flex; gap: 24px; flex-direction: column;">
+                        <p style="max-width: 200px;"><strong class="ids"><?php echo $suggestProduct->getName(); ?></strong> - <span class="price">As low as $<?php echo $suggestProduct->getPrice(); ?></span> </p>
+                        <img width="150px" height="150px" src="<?php echo $image; ?>">
+
+                        <form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post" id="tocart-form">
                             <?php echo $block->getBlockHtml('formkey') ?>
                             <div class="btn">
                                 <button type="submit" title="Add to Cart" class="action tocart primary">
@@ -40,6 +49,10 @@ $listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
         <?php else : ?>
             <div class="emptyList">No products in your Cart.</div>
         <?php endif; ?>
+
+        <br>
+        <br>
+        <div><button class="action go-to-checkout primary">Go to checkout</button></div>
     </div>
 </div>
 
@@ -70,10 +83,8 @@ $listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
 
         //
         $(document).ready(function() {
-            $('.tocart').click(function() {
-                setTimeout(function() {
-                    window.location.href = '<?php echo $block->escapeUrl($block->getCheckoutUrl()) ?>';
-                }, 1000); 
+            $('.go-to-checkout').on("click", function(events) {
+                window.location.href = '<?php echo $block->escapeUrl($block->getCheckoutUrl()) ?>';
             });
         });
     });
