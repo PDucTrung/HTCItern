@@ -3,5 +3,14 @@
         <referenceContainer name="minicart.addons">
             <block class="Trung\SuggestProducts\Block\SuggestProductsBlock" name="custom.block" template="Trung_SuggestProducts::suggest_template.phtml" cacheable="false"/>
         </referenceContainer>
+        <referenceBlock name="minicart" template="Magento_Checkout::cart/minicart.phtml">
+            <action method="setData">
+                <argument name="data" xsi:type="array">
+                    <item name="proceed_to_checkout" xsi:type="array">
+                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+            </action>
+        </referenceBlock>
     </body>
 </page>

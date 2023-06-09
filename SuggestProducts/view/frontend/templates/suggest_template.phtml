@@ -2,17 +2,6 @@
 $items = $block->getCartItems();
 ?>
 
-<button id="showModalButton" style="display: block;
-    width: 100%; background: #1979c3;
-    border: 1px solid #1979c3;
-    color: #ffffff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 600; line-height: 2.2rem;
-    padding: 14px 17px;
-    font-size: 1.8rem;" class="action primary">Proceed to Checkout</button>
-
 <div id="customModal" style="display: none;">
     <div id="minicart-content-wrapper">
         <?php if (count($items) > 0) : ?>
@@ -61,27 +50,6 @@ $items = $block->getCartItems();
         'jquery',
         'Magento_Ui/js/modal/modal'
     ], function($, modal) {
-        var options = {
-            type: 'popup',
-            responsive: true,
-            innerScroll: true,
-            modalClass: 'custom-modal-class',
-            buttons: [{
-                text: $.mage.__('Close'),
-                class: 'mymodal-close',
-                click: function() {
-                    this.closeModal();
-                }
-            }]
-        };
-
-        var popup = modal(options, $('#customModal'));
-
-        $('#showModalButton').click(function() {
-            $('#customModal').modal('openModal');
-        });
-
-        //
         $(document).ready(function() {
             $('.go-to-checkout').on("click", function(events) {
                 window.location.href = '<?php echo $block->escapeUrl($block->getCheckoutUrl()) ?>';
