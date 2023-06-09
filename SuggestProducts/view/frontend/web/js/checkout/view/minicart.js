@@ -6,7 +6,7 @@ define([
 ], function ($, authenticationPopup, modal, customerData
 ) {
     'use strict';
-
+    
     return function (Component) {
         return Component.extend({
 
@@ -30,23 +30,22 @@ define([
                                 class: 'mymodal-close',
                                 click: function() {
                                     this.closeModal();
-                        }
-                    }]
-                };
+                                }
+                            }]
+                        };
 
-                if(name === 'possible_onepage_checkout'){                           
-                    var popup = modal(options, $('#customModal'));
-                    $("#customModal").modal("openModal");
+                        var popup = modal(options, $('#customModal'));
+                        $("#customModal").modal("openModal");
                         return false;
                     }
-                };
-
-                $('#top-cart-btn-checkout').on('click',showPopup);
-                    
                 }
 
-                $('.checkout').on('click',showPopup);
+                if(name === 'possible_onepage_checkout'){                           
+                    $('#top-cart-btn-checkout').on('click',showPopup);
+                };
                 
+                // $('.action.primary.checkout').on('click',showPopup);  
+
                 return this._super(name);
             },
         });
