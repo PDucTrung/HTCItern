@@ -1,0 +1,35 @@
+<ul class="checkout methods items checkout-methods-items">
+    <li class="item"> <button type="button" data-role="proceed-to-checkout" title="Proceed to Checkout" class="action primary checkout" id="bottom-cart-btn-checkout">
+            <span>Proceed to Checkout</span>
+        </button>
+    </li>
+    <li class="item"><a class="action multicheckout" href="http://trung.magento2.com/index.php/multishipping/checkout/"><span>Check Out with Multiple Addresses</span></a>
+    </li>
+</ul>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            modalClass: 'custom-modal-class',
+            buttons: [{
+                text: $.mage.__('Close'),
+                class: 'mymodal-close',
+                click: function() {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#customModal'));
+
+        $('#bottom-cart-btn-checkout').click(function() {
+            $('#customModal').modal('openModal');
+        });
+    });
+</script>
