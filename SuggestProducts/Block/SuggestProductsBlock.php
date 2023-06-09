@@ -9,6 +9,7 @@ use Magento\Checkout\Model\Cart;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Catalog\Block\Product\ListProduct;
+use Trung\SuggestProducts\Model\Product\Link;
 
 class SuggestProductsBlock extends Template
 {
@@ -19,6 +20,7 @@ class SuggestProductsBlock extends Template
     protected $formKey;
     protected $urlBuilder;
     protected $listProduct;
+    private $link;
 
     public function __construct(
         Context $context,
@@ -27,6 +29,7 @@ class SuggestProductsBlock extends Template
         Product $product,
         FormKey $formKey,
         ListProduct $listProduct,
+        Link $link,
         \Magento\Framework\UrlInterface $urlBuilder,
         array $data = []
     ) {
@@ -36,6 +39,7 @@ class SuggestProductsBlock extends Template
         $this->urlBuilder = $urlBuilder;
         $this->formKey = $formKey;
         $this->listProduct = $listProduct;
+        $this->link = $link;
         parent::__construct($context, $data);
     }
 
@@ -61,10 +65,11 @@ class SuggestProductsBlock extends Template
     public function getProductsData($id)
     {
         $productId = '';
+        $link_type = $this->link::LINK_TYPE_CUSTOMLINKED;
         $connection = $this->resourceConnection->getConnection();
         $tableName = $this->resourceConnection->getTableName('catalog_product_link');
 
-        $sql = "SELECT * FROM $tableName WHERE (`product_id` = $id AND `link_type_id` = '6') ORDER BY `product_id` LIMIT 1";
+        $sql = "SELECT * FROM $tableName WHERE `product_id` = $id AND (`link_id` = $link_type OR `product_id` = $link_type OR `linked_product_id` = $link_type OR `link_type_id` = $link_type) LIMIT 1";
 
         $results = $connection->fetchAll($sql);
 
